@@ -41,6 +41,7 @@
     }
 
     #components-layout-demo-basic .ant-layout-content {
+        background: #fff;
         min-height: 120px;
         line-height: 120px;
     }
