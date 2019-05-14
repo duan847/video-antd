@@ -10,9 +10,13 @@ import {Badge} from 'ant-design-vue'
 import {Avatar} from 'ant-design-vue'
 import {Pagination} from 'ant-design-vue'
 import {Divider} from 'ant-design-vue'
+import {Tabs} from 'ant-design-vue'
+import {Button} from 'ant-design-vue'
+import {message} from 'ant-design-vue'
+import {List} from 'ant-design-vue'
 import App from './App'
 Vue.config.productionTip = false
-
+Vue.prototype.$message = message;
 Vue.use(Layout)
 Vue.use(Card)
 Vue.use(Col)
@@ -23,6 +27,9 @@ Vue.use(Badge)
 Vue.use(Avatar)
 Vue.use(Pagination)
 Vue.use(Divider)
+Vue.use(Tabs)
+Vue.use(Button)
+Vue.use(List)
 
 new Vue({
     router,

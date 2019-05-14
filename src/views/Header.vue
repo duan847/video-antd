@@ -6,7 +6,7 @@
             </a-col>
             <a-col :xs="16" :sm="10" :md="12" :lg="9" :xl="6">
                 <a-input-search
-                        placeholder="搜索"
+                        placeholder="搜索" @search="onSearch"
                 />
             </a-col>
             <a-col :xs="4" :sm="6" :md="4" :lg="3" :xl="10">
@@ -22,7 +22,11 @@
 
 <script>
     export default {
-        name: "Header"
+        methods: {
+            onSearch (text) {
+                this.$router.push({name:"three",params:{"text": text}})
+            },
+        },
     }
 </script>
 

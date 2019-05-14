@@ -46,3 +46,26 @@ export function selectUrlPageById(id,o) {
         params: o
     })
 }
+
+/**
+ * 根据id更新视频所有信息
+ * @param o
+ */
+export function updateAllInfoById(id) {
+    return request({
+        url: '/video/'+id+'/allinfo',
+        method: 'put'
+    })
+}
+
+/**
+ * 根据文本分页查询电影
+ * @param o
+ */
+export function selectDetailByTextPage(query) {
+    return request({
+        url: '/video/detail/page',
+        method: 'get',
+        params: query
+    })
+}
