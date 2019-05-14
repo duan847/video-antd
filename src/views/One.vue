@@ -1,12 +1,12 @@
 <template>
     <div>
-        <a-divider orientation="left">热映 </a-divider>
+        <a-divider orientation="left">热映</a-divider>
         <a-row :gutter="10">
-            <a-col :xs="12" :sm="8" :md="7" :lg="6" :xl="5" v-for="(item,index) in hotList" :key="index">
+            <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="4" v-for="(item,index) in hotList" :key="index" style="padding-bottom: 10px">
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
-                    <a-card style="width: 240px">
+                    <a-card style="width: 180px">
                         <img alt="example" :src="item.cover"
-                             slot="cover" height="300px"/>
+                             slot="cover" height="280px"/>
                         <a-card-meta :title="item.name">
                             <!--<template slot="description">{{item.name}}</template>-->
                         </a-card-meta>
@@ -14,7 +14,7 @@
                 </router-link>
             </a-col>
         </a-row>
-        <a-row>
+        <a-row style="text-align: center">
             <a-pagination :pageSize.sync="hotSize" v-model="hotCurrent" :total="hotTotal" @change="hotSizeChange"/>
         </a-row>
     </div>
@@ -45,7 +45,7 @@
         },
         data() {
             return {
-                hotSize: 4,
+                hotSize: 10,
                 hotList: null,
                 hotCurrent: 1,
                 hotTotal: 1,

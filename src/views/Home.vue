@@ -6,7 +6,7 @@
                     <Header></Header>
                 </a-layout-header>
             </a-affix>
-            <a-layout-content>
+            <a-layout-content style="padding: 0 2px;">
                 <router-view></router-view>
             </a-layout-content>
         </a-layout>
