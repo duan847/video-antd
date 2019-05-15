@@ -74,8 +74,6 @@
                     if (resp) {
                         this.$message.success('更新集数成功');
                         this.selectUrlPageById()
-                    } else {
-                        this.$message.error('更新集数中，请稍后手动刷新此页面查看最新集数');
                     }
                     this.loading = false
                 })

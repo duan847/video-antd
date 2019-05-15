@@ -2,8 +2,7 @@
     <div>
         <a-divider orientation="left">搜索 ：{{name}}</a-divider>
 
-        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"
-                locale="没有搜索结果">
+        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
 
                 <img slot="extra" width="200" height="300" alt="logo" :src="item.cover"/>

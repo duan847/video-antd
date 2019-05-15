@@ -16,6 +16,7 @@ import {message} from 'ant-design-vue'
 import {List} from 'ant-design-vue'
 import {Spin} from 'ant-design-vue'
 import {Carousel} from 'ant-design-vue'
+import {Icon} from 'ant-design-vue'
 import App from './App'
 Vue.config.productionTip = false
 Vue.prototype.$message = message;
@@ -34,6 +35,7 @@ Vue.use(Button)
 Vue.use(List)
 Vue.use(Spin)
 Vue.use(Carousel)
+Vue.use(Icon)
 
 new Vue({
     router,
