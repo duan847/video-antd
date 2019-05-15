@@ -1,13 +1,14 @@
 <template>
-    <div style="width: 100%">
-        <a-row :gutter="10">
-            <a-col :xs="20" :sm="18" :md="18" :lg="18" :xl="18">
+    <div>
+        <a-divider orientation="left"><h3>{{name}}</h3></a-divider>
+        <a-row :gutter="10" type="flex" justify="space-around" align="middle">
+            <a-col :xs="22" :sm="18" :md="18" :lg="18" :xl="16">
                 <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid">
                     <source type="application/x-mpegURL">
                 </video>
             </a-col>
         </a-row>
-        <a-divider orientation="left"><h3>{{name}}</h3></a-divider>
+
         <!--播放线路、集数。少于五集，在同一个tab中显示-->
         <a-tabs v-if="urlList!== undefined &&urlList!== null && urlList.length <= 5">
             <a-tab-pane tab="播放源" key="1">
@@ -24,6 +25,10 @@
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
+        <a-row>
+        <a-divider dashed orientation="left">简 介</a-divider>
+        <div>{{videoDetail.synopsis}}</div>
+        </a-row>
     </div>
 </template>
 
@@ -35,7 +40,7 @@
     export default {
         data() {
             return {
-                videoDetail: null,
+                videoDetail: {},
                 urlSize: -1,
                 urlList: null,
                 id: this.$route.params.id,
@@ -65,6 +70,10 @@
                 map[list[list.length - 1].line] = arr
                 return map
             }
+        },
+        destroyed() {
+            //销毁视频播放器
+            video('myVideo').dispose()
         },
         methods: {
             //根据id更新视频所有信息
@@ -149,5 +158,8 @@
 </script>
 
 <style scoped>
-
+    .center{
+         width:1000px;
+         margin: 0 auto;
+        }
 </style>

@@ -11,7 +11,7 @@
             </a-col>
             <a-col :xs="4" :sm="6" :md="4" :lg="3" :xl="10">
                 <span style="float:right">
-                    <a-badge :count="1"><a-avatar shape="square" icon="user"/></a-badge>
+                    <a-badge dot><a-avatar shape="square" icon="user"/></a-badge>
                 </span>
             </a-col>
             <a-divider/>
