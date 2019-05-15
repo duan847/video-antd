@@ -21,10 +21,14 @@
 </template>
 
 <script>
+    import bus from '../eventBus.js'
     export default {
         methods: {
             onSearch (text) {
-                this.$router.push({name:"three",params:{"text": text}})
+                if(text) {
+                    bus.$emit('eventBus', text)
+                    this.$router.push({name: "three", params: {"text": text}})
+                }
             },
         },
     }

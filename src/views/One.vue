@@ -1,5 +1,12 @@
 <template>
     <div>
+        <a-carousel effect="fade" autoplay>
+            <div><h3>1</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+            <div><h3>4</h3></div>
+        </a-carousel>
+
         <a-divider orientation="left">热映</a-divider>
         <a-row :gutter="10">
             <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="4" v-for="(item,index) in hotList" :key="index" style="padding-bottom: 10px">
@@ -45,7 +52,7 @@
         },
         data() {
             return {
-                hotSize: 10,
+                hotSize: 12,
                 hotList: null,
                 hotCurrent: 1,
                 hotTotal: 1,
@@ -62,5 +69,16 @@
 </script>
 
 <style scoped>
+    /* For demo */
+    .ant-carousel >>> .slick-slide {
+        text-align: center;
+        height: 500px;
+        line-height: 160px;
+        background: #364d79;
+        overflow: hidden;
+    }
 
+    .ant-carousel >>> .slick-slide h3 {
+        color: #fff;
+    }
 </style>

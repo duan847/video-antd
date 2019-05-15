@@ -1,26 +1,28 @@
 <template>
-    <div  style="width: 100%">
+    <div style="width: 100%">
         <a-row :gutter="10">
             <a-col :xs="20" :sm="18" :md="18" :lg="18" :xl="18">
-            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" >
-                <source type="application/x-mpegURL">
-            </video>
+                <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid">
+                    <source type="application/x-mpegURL">
+                </video>
             </a-col>
         </a-row>
-        <!--            播放线路、集数。少于五集，在同一个tab中显示-->
+        <a-divider orientation="left"><h3>{{name}}</h3></a-divider>
+        <!--播放线路、集数。少于五集，在同一个tab中显示-->
         <a-tabs v-if="urlList!== undefined &&urlList!== null && urlList.length <= 5">
             <a-tab-pane tab="播放源" key="1">
-            <a-button  v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url)">{{url.name}}</a-button>
+                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url)">{{url.name}}
+                </a-button>
             </a-tab-pane>
-            <a-button slot="tabBarExtraContent" @click="updateAllInfoById">更新集数</a-button>
+            <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
         <a-tabs v-else>
-            <a-tab-pane v-for="(url,index) in urlList" :key="index" >
+            <a-tab-pane v-for="(line,index) in this.reversedMessage" :key="index">
 
-                <span slot="tab" v-if="index === 0 || url.line !== urlList[index-1].line">线路{{url.line}}</span>
-                <a-button @click="switchUrl(url.url)">{{url.name}}</a-button>
+                <span slot="tab">线路{{index}}</span>
+                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url)">{{url.name}}</a-button>
             </a-tab-pane>
-            <a-button slot="tabBarExtraContent" @click="updateAllInfoById">更新集数</a-button>
+            <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
     </div>
 </template>
@@ -31,48 +33,70 @@
     import 'video.js/dist/video-js.css'
 
     export default {
-    data(){
-        return {
-            videoDetail:null,
-            urlSize: -1,
-            urlList: null,
-            id: this.$route.params.id,
-            name:null,
-            player: null
-        }
-    },
+        data() {
+            return {
+                videoDetail: null,
+                urlSize: -1,
+                urlList: null,
+                id: this.$route.params.id,
+                name: null,
+                player: null,
+                loading: false,
+            }
+        },
         created() {
             this.selectUrlPageById()
             this.getDetailById()
+        },
+        computed: {
+            reversedMessage: function () {
+                let arr = []
+                const map = {}
+                const list = this.urlList
 
+                if (!list) return {}
+                for (let i = 0; i < list.length; i++) {
+                    if (i !== 0 && list[i - 1].line !== list[i].line) {
+                        map[list[i - 1].line] = arr
+                        arr = []
+                    }
+                    arr.push(list[i])
+                }
+                map[list[list.length - 1].line] = arr
+                return map
+            }
         },
         methods: {
             //根据id更新视频所有信息
             updateAllInfoById() {
-                updateAllInfoById(this.videoDetail.id).then(resp =>{
-                    if(resp) {
+                this.loading = true
+                updateAllInfoById(this.videoDetail.id).then(resp => {
+                    if (resp) {
                         this.$message.success('更新集数成功');
                         this.selectUrlPageById()
+                    } else {
+                        this.$message.error('更新集数中，请稍后手动刷新此页面查看最新集数');
                     }
+                    this.loading = false
                 })
             },
-            switchUrl(url){
+            switchUrl(url) {
                 this.player.src(url);
                 this.player.load(url);
             },
-            getDetailById(){
+            getDetailById() {
                 getDetailById(this.id).then(resp => {
                     this.videoDetail = resp
                     this.name = resp.name
                     document.title = this.name
                 })
             },
-            selectUrlPageById(){
-                selectUrlPageById(this.$route.params.id,{size:this.urlSize}).then(resp => {
-                this.urlList = resp.records
-                this.initVideo()
-            })
-        },
+            selectUrlPageById() {
+                selectUrlPageById(this.$route.params.id, {size: this.urlSize}).then(resp => {
+                    this.urlList = resp.records
+                    this.initVideo()
+                })
+            },
             initVideo() {
                 // console.log(this.urlList)
                 //初始化视频方法
@@ -92,7 +116,7 @@
                     responsive: true,
                     sources: [{
                         type: "application/x-mpegURL",
-                        src:this.urlList[0].url,
+                        src: this.urlList[0].url,
                     }],
                     userActions: {
                         hotkeys: function (event) {
