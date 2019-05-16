@@ -25,7 +25,6 @@ instance.interceptors.response.use(
         return resp
     },
     error => {
-        console.log('err' + error) // for debug
         return Promise.reject(error)
     }
 )
