@@ -180,7 +180,7 @@
             selectByMVPage() {
             this.tv.loading = true
             this.tv.list = []
-            selectPage({current:this.tv.current, size: this.tv.size,type:this.tv.type,orderByField:'update_time'}).then(resp => {
+            selectPage({current:this.tv.current, size: this.tv.size,type:this.tv.type,orderByField:'update_time',isAsc:false}).then(resp => {
                 this.tv.list = resp.records
                 this.tv.current = parseInt(resp.current)
                 this.tv.total = parseInt(resp.total)
@@ -190,7 +190,7 @@
         selectByVarietyShowPage() {
             this.varietyShow.loading = true
             this.varietyShow.list = []
-            selectPage({current:this.varietyShow.current, size: this.varietyShow.size,type:this.varietyShow.type,orderByField:'update_time'}).then(resp => {
+            selectPage({current:this.varietyShow.current, size: this.varietyShow.size,type:this.varietyShow.type,orderByField:'update_time',isAsc:false}).then(resp => {
                 this.varietyShow.list = resp.records
                 this.varietyShow.current = parseInt(resp.current)
                 this.varietyShow.total = parseInt(resp.total)
@@ -200,7 +200,7 @@
             selectByAnimePage() {
                 this.anime.loading = true
                 this.anime.list = []
-                selectPage({current:this.anime.current, size: this.anime.size,type:this.anime.type,orderByField:'update_time'}).then(resp => {
+                selectPage({current:this.anime.current, size: this.anime.size,type:this.anime.type,orderByField:'update_time',isAsc:false}).then(resp => {
                     this.anime.list = resp.records
                     this.anime.current = parseInt(resp.current)
                     this.anime.total = parseInt(resp.total)
