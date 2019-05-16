@@ -59,10 +59,10 @@ export function updateAllInfoById(id) {
 }
 
 /**
- * 根据文本分页查询电影
+ * 分页查询电影
  * @param o
  */
-export function selectDetailByTextPage(query) {
+export function selectPage(query) {
     return request({
         url: '/video/detail/page',
         method: 'get',

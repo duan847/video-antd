@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-divider orientation="left">搜索 ：{{name}}</a-divider>
+        <a-divider orientation="left">搜索 ：{{name || type}}</a-divider>
 
         <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
@@ -20,17 +20,18 @@
 <script>
     // 兄弟组件传值
     import bus from '../eventBus.js'
-    import {selectDetailByTextPage} from '@/api/video'
+    import {selectPage} from '@/api/video'
 
     export default {
         methods: {
-            selectDetailByTextPage() {
+            selectPage() {
                 this.loading = true
                 this.listData = []
-                selectDetailByTextPage({
+                selectPage({
                     current: this.pagination.current,
                     size: this.pagination.pageSize,
-                    name: this.name
+                    name: this.name,
+                    type: this.type,
                 }).then(resp => {
                     this.listData = resp.records
                     this.pagination.current = parseInt(resp.current)
@@ -43,24 +44,25 @@
             return {
                 loading: false,
                 name: this.$route.params.text,
+                type: this.$route.params.type,
                 listData: null,
                 pagination: {
                     onChange: (page) => {
                         this.pagination.current = page
-                        this.selectDetailByTextPage()
+                        this.selectPage()
                     },
                     pageSize: 10,
                 },
             }
         },
         created() {
-            this.selectDetailByTextPage()
+            this.selectPage()
         },
         mounted() {
             bus.$on('eventBus', msg => {
                 this.name = msg
                 this.pagination.current = 1
-                this.selectDetailByTextPage()
+                this.selectPage()
             })
         }
     }
