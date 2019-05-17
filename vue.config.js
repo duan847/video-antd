@@ -13,5 +13,7 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+//false：不输出map文件，代码压缩加密，运行时报错，错误信息无法准确得知是哪里的代码报错。
+productionSourceMap:false,
 }
