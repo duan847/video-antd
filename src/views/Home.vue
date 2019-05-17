@@ -3,10 +3,10 @@
         <a-layout>
             <a-affix>
                 <a-layout-header>
-                    <Header></Header>
+                    <Header/>
                 </a-layout-header>
             </a-affix>
-            <a-layout-content style="padding: 0 2px;">
+            <a-layout-content>
                 <router-view></router-view>
             </a-layout-content>
         </a-layout>
