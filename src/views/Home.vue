@@ -30,20 +30,15 @@
 </script>
 
 <style scoped>
-    #components-layout-demo-basic .ant-layout-header,
-    #components-layout-demo-basic .ant-layout-footer {
+    #components-layout-demo-basic .ant-layout-header {
         background: #fff;
         color: #fff;
-    }
-
-    #components-layout-demo-basic .ant-layout-footer {
-        line-height: 1.5;
     }
 
     #components-layout-demo-basic .ant-layout-content {
         background: #fff;
         min-height: 120px;
-        line-height: 120px;
+        margin: 0 0.3em;
     }
 
     #components-layout-demo-basic > .ant-layout {

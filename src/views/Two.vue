@@ -1,7 +1,7 @@
 <template>
     <div>
         <a-divider orientation="left"><h3>{{name}}</h3></a-divider>
-        <a-row :gutter="10" type="flex" justify="space-around" align="middle">
+        <a-row type="flex" justify="space-around" align="middle">
             <a-col :xs="22" :sm="18" :md="18" :lg="18" :xl="16">
                 <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid">
                     <source type="application/x-mpegURL">
@@ -12,7 +12,7 @@
         <!--播放线路、集数。少于五集，在同一个tab中显示-->
         <a-tabs v-if="urlList!== undefined &&urlList!== null && urlList.length <= 5">
             <a-tab-pane tab="播放源" key="1">
-                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url)">{{url.name}}
+                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url,url.name)" class="episodes">{{url.name}}
                 </a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
@@ -21,7 +21,7 @@
             <a-tab-pane v-for="(line,index) in this.reversedMessage" :key="index">
 
                 <span slot="tab">线路{{index}}</span>
-                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url)">{{url.name}}</a-button>
+                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name)" class="episodes">{{url.name}}</a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
@@ -87,9 +87,10 @@
                     this.loading = false
                 })
             },
-            switchUrl(url) {
+            switchUrl(url,name) {
                 this.player.src(url);
                 this.player.load(url);
+                document.title = this.name + ' - ' + name
             },
             getDetailById() {
                 getDetailById(this.id).then(resp => {
@@ -151,15 +152,13 @@
                 //         myPlayer.play();
                 //     });
                 // });
-            }, created() {
             }
         }
     }
 </script>
 
 <style scoped>
-    .center{
-         width:1000px;
-         margin: 0 auto;
-        }
+    .episodes{
+        margin:0.12em;
+    }
 </style>

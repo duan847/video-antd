@@ -5,7 +5,7 @@
         <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
 
-                <img slot="extra" width="200" height="300" alt="logo" :src="item.cover"/>
+                <img slot="extra" width="180em" height="300em" alt="logo" :src="item.cover" @click="play(item.id)"/>
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
                     <a-list-item-meta :description="item.synopsis">
                         <a slot="title">{{item.name}}</a>
@@ -13,7 +13,6 @@
                     {{item.content}}
                 </router-link>
             </a-list-item>
-            <!--<a-spin v-if="loading" class="demo-loading"/>-->
         </a-list>
     </div>
 </template>
@@ -38,6 +37,8 @@
                     this.pagination.total = parseInt(resp.total)
                     this.loading = false
                 })
+            },play(id){
+                this.$router.push({name: "two", params: {"id": id}})
             }
         },
         data() {
