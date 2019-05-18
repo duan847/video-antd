@@ -31,7 +31,6 @@
         </a-row>
     </div>
 </template>
-
 <script>
     import {selectUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
     import video from 'video.js'

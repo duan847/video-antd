@@ -1,8 +1,9 @@
 <template>
     <div>
         <a-row :gutter="10">
-            <a-col :xs="4" :sm="6" :md="6" :lg="6" :xl="8">
-                <router-link :to="{ name: 'one'}">首页</router-link>
+            <a-col :xs="4" :sm="6" :md="6" :lg="6" :xl="8" @click="home" style="cursor:pointer" >
+                <img src="../assets/logo.png" style="width: 8em" alt="首页"/>
+                <!--<router-link :to="{ name: 'one'}">首页</router-link>-->
             </a-col>
             <a-col :xs="16" :sm="10" :md="12" :lg="9" :xl="6">
                 <a-input-search
@@ -23,7 +24,15 @@
 <script>
     import bus from '../eventBus.js'
     export default {
+        data(){
+            return {
+                logo : '../../assets/img/login.png'
+            }
+        },
         methods: {
+            home(){
+                this.$router.push({name: "one"})
+            },
             onSearch (text) {
                 if(text) {
                     bus.$emit('eventBus', text)
@@ -37,5 +46,8 @@
 <style scoped>
     .ant-layout-header {
         background: #7dbcea;
+    }
+    .logo{
+        /*background:url('../../assets/logo.jpg') no-repeat;*/
     }
 </style>
