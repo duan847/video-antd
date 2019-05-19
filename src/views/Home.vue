@@ -33,6 +33,7 @@
     #components-layout-demo-basic .ant-layout-header {
         background: #fff;
         color: #fff;
+        padding: 0 20px;
     }
 
     #components-layout-demo-basic .ant-layout-content {

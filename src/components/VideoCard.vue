@@ -65,6 +65,6 @@
         padding: 0 4px 8px 4px;
     }
     .img{
-        height: 25em;
+        height: 20em;
     }
 </style>

@@ -10,15 +10,15 @@
 
             <a-divider orientation="left">
                 <a-icon type="video-camera" theme="twoTone" twoToneColor="#eb2f96"/>
-                <b class="title"> 电视剧 </b>
+                <b class="title"> 电视剧</b>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('12')" :disabled="tv.type === '12' ? true : false">国产剧</a>
+                <a @click="switchTV('12')" :disabled="tv.type === '12' ? true : false">国产</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('14')" :disabled="tv.type === '14' ? true : false">港台剧</a>
+                <a @click="switchTV('14')" :disabled="tv.type === '14' ? true : false">港台</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('8')" :disabled="tv.type === '8' ? true : false">欧美剧</a>
+                <a @click="switchTV('8')" :disabled="tv.type === '8' ? true : false">欧美</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('7')" :disabled="tv.type === '7' ? true : false">日韩剧</a>
+                <a @click="switchTV('7')" :disabled="tv.type === '7' ? true : false">日韩</a>
             </a-divider>
         <a-row ref="container">
             <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="4" v-for="(item,index) in tv.list" :key="index" class="col-padding">
@@ -237,6 +237,6 @@
         padding: 0 4px 8px 4px;
     }
     .img{
-        height: 25em;
+        height: 20em;
     }
 </style>
