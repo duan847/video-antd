@@ -4,13 +4,15 @@
             <a-icon :type="obj.icon" theme="twoTone" twoToneColor="#eb2f96"/>
             <b class="title"> {{obj.title}}</b></a-divider>
         <a-row>
-            <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="4" v-for="(item,index) in obj.list" :key="index" class="col-padding">
+            <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="3" v-for="(item,index) in obj.list" :key="index" class="col-padding">
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
-                    <a-card style="">
-                        <img alt="example" :src="item.cover" slot="cover" class="img"/>
-                        <a-card-meta :title="item.name">
-                            <!--<template slot="description">{{item.name}}</template>-->
-                        </a-card-meta>
+                    <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
+                        <div slot="cover" class="cover" >
+                            <img alt="图片" :src="item.cover" class="img" />
+                                                    <div class="remarks" >
+                                      {{item.remarks}}</div>
+                        </div>
+                        <a-card-meta :title="item.name"/>
                     </a-card>
                 </router-link>
             </a-col>
@@ -65,6 +67,23 @@
         padding: 0 4px 8px 4px;
     }
     .img{
+       width: 100%;
+        height: 100%;
+    }
+
+    .remarks{
+        position: absolute;
+        bottom: 7px;
+        right: 5px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #fff;
+        background: rgba(0,0,0,.6);
+        padding: 0 7px;
+        border-radius: 10px;
+    }
+    .cover{
+        position:relative;
         height: 20em;
     }
 </style>
