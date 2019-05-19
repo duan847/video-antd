@@ -12,7 +12,7 @@
         <!--播放线路、集数。少于五集，在同一个tab中显示-->
         <a-tabs v-if="urlList!== undefined &&urlList!== null && urlList.length <= 5">
             <a-tab-pane tab="播放源" key="1">
-                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url,url.name)" class="episodes">{{url.name}}
+                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url,url.name,index)" class="episodes">{{url.name}}
                 </a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
@@ -21,7 +21,7 @@
             <a-tab-pane v-for="(line,index) in this.reversedMessage" :key="index">
 
                 <span slot="tab">线路{{index}}</span>
-                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name)" class="episodes">{{url.name}}</a-button>
+                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name,index)" class="episodes">{{url.name}}</a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
@@ -46,6 +46,7 @@
                 name: null,
                 player: null,
                 loading: false,
+                urlIndex: 0
             }
         },
         created() {
@@ -86,9 +87,22 @@
                     this.loading = false
                 })
             },
-            switchUrl(url,name) {
-                this.player.src(url);
-                this.player.load(url);
+            //切换到下一集
+            switchNext(){
+                this.urlIndex = this.urlIndex + 1
+                window.console.log(this.urlIndex)
+                const url = this.urlIndex < this.urlList.length ? this.urlList[this.urlIndex].url : null
+                if(url) {
+                    this.$message.success('播放：' + this.name + " - " +this.urlList[this.urlIndex].name);
+                    this.switchUrl(url,this.urlList[this.urlIndex].name,this.urlIndex)
+                } else {
+                    this.$message.error('已经是最后一集');
+                }
+            },
+            switchUrl(url,name,index) {
+                video('myVideo').src(url);
+                video('myVideo').load(url);
+                this.urlIndex = index
                 document.title = this.name + ' - ' + name
             },
             getDetailById() {
@@ -105,52 +119,56 @@
                 })
             },
             initVideo() {
-                // console.log(this.urlList)
-                //初始化视频方法
-                this.player = video('myVideo', {
+                const _this = this
+                const options= {
                     //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
                     controls: true,
-                    //自动播放属性,muted:静音播放
-                    autoplay: "muted",
+                    // //自动播放属性,muted:静音播放，autoplay:自动播放
+                    autoplay: "autoplay",
                     //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
                     preload: "auto",
-                    //设置视频播放器的显示宽度（以像素为单位）
-                    width: "500px",
-                    //设置视频播放器的显示高度（以像素为单位）
-                    height: "400px",
                     //倍速
-                    playbackRates: [0.5, 1, 1.5, 2, 4],
+                    playbackRates: [0.5, 1,1.25, 1.5, 2, 4],
                     responsive: true,
+                    notSupportedMessage:"视频加载失败，正在切换视频源",
                     sources: [{
                         type: "application/x-mpegURL",
-                        src: this.urlList[0].url,
+                        src: this.urlList[this.urlIndex].url,
                     }],
                     userActions: {
-                        hotkeys: function (event) {
+                        hotkeys: function(event) {
                             // `this` is the player in this context
-                            // `x` key = pause
-                            if (event.which === 88) {
-                                this.pause();
+                            // 左键
+                            if (event.which === 37 ) {
+                                this.currentTime(this.currentTime() - 10)
+                            }
+                            // 上键
+                            if (event.which === 38 ) {
+                                this.volume(this.volume() + 0.1)
                             }
                             // `y` key = play
-                            if (event.which === 89) {
-                                this.play();
+                            if (event.which === 39) {
+                                this.currentTime(this.currentTime() + 10)
+                            }
+                            // 下键
+                            if (event.which === 40 ) {
+                                this.volume(this.volume() - 0.1)
                             }
                         }
                     }
+                }
+                //初始化视频方法
+                this.player = video('myVideo', options,function(){
+                    // 结束，如果有下一集自动播放下一集
+                    this.on('ended', function() {
+                        _this.switchNext()
+                    })
+                    // 错误，如果有下一集自动不放下一集
+                    this.on('error', function() {
+                        _this.$message.error("视频加载失败，切换到下一个资源")
+                        _this.switchNext()
+                    })
                 });
-                // myPlayer.on('pause', function() {
-                //
-                //     // Modals are temporary by default. They dispose themselves when they are
-                //     // closed; so, we can create a new one each time the player is paused and
-                //     // not worry about leaving extra nodes hanging around.
-                //     var modal = myPlayer.createModal('This is a modal!');
-                //
-                //     // When the modal closes, resume playback.
-                //     modal.on('modalclose', function() {
-                //         myPlayer.play();
-                //     });
-                // });
             }
         }
     }
@@ -160,4 +178,5 @@
     .episodes{
         margin:0.12em;
     }
+
 </style>
