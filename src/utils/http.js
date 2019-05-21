@@ -3,7 +3,6 @@
 const instance = axios.create({
     baseURL: '/api', // api的base_url
     timeout: 20000 // 请求超时时间
-    // transformRequest: data => qs.stringify(data) //
 })
 // request拦截器
 instance.interceptors.request.use(

@@ -7,7 +7,7 @@
             </a-col>
             <a-col :xs="14" :sm="10" :md="12" :lg="9" :xl="6">
                 <a-input-search
-                        placeholder="搜索" @search="onSearch"
+                        placeholder="搜索 电影名/电视剧名/" @search="onSearch"
                 />
             </a-col>
             <a-col :xs="4" :sm="6" :md="4" :lg="3" :xl="10">

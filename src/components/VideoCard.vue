@@ -4,7 +4,7 @@
             <a-icon :type="obj.icon" theme="twoTone" twoToneColor="#eb2f96"/>
             <b class="title"> {{obj.title}}</b></a-divider>
         <a-row>
-            <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="3" v-for="(item,index) in obj.list" :key="index" class="col-padding">
+            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
                     <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
                         <div slot="cover" class="cover" >
@@ -84,6 +84,6 @@
     }
     .cover{
         position:relative;
-        height: 20em;
+        height: 13em;
     }
 </style>

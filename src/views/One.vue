@@ -15,7 +15,7 @@
                 <a @click="switchTV('7')" :disabled="tv.type === '7' ? true : false">日韩</a>
             </a-divider>
         <a-row ref="container">
-            <a-col :xs="12" :sm="8" :md="6" :lg="6" :xl="3" v-for="(item,index) in tv.list" :key="index" class="col-padding">
+            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in tv.list" :key="index" class="col-padding">
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
                     <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
                         <div slot="cover" class="cover" >
@@ -249,6 +249,6 @@
     }
     .cover{
         position:relative;
-        height: 20em;
+        height: 13em;
     }
 </style>
