@@ -1,11 +1,5 @@
 <template>
     <div>
-        <a-carousel effect="fade" autoplay>
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
-            <div><h3>4</h3></div>
-        </a-carousel>
         <VideoCard :obj="hot"></VideoCard>
 
             <a-divider orientation="left">

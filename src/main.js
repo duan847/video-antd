@@ -16,7 +16,6 @@ import {
     message,
     List,
     Spin,
-    Carousel,
     Icon,
     BackTop
 } from 'ant-design-vue'
@@ -38,7 +37,6 @@ Vue.use(Tabs)
 Vue.use(Button)
 Vue.use(List)
 Vue.use(Spin)
-Vue.use(Carousel)
 Vue.use(Icon)
 Vue.use(BackTop)
 
