@@ -2,7 +2,7 @@
     <div>
         <a-row>
             <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="8" @click="home" style="cursor:pointer" >
-                <img src="../assets/logo.png" style="width: 85px" alt="首页"/>
+                <img src="../assets/logo.png" style="width: 80px" alt="首页"/>
                 <!--<router-link :to="{ name: 'one'}">首页</router-link>-->
             </a-col>
             <a-col :xs="14" :sm="10" :md="12" :lg="9" :xl="6">
