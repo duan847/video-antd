@@ -50,8 +50,14 @@
             }
         },
         created() {
-            this.selectUrlPageById()
-            this.getDetailById()
+            Promise.all([selectUrlPageById(this.$route.params.id, {size: this.urlSize}),getDetailById(this.id)]).then(resp =>{
+                this.videoDetail = resp[1]
+                this.name = resp[1].name
+                document.title = this.name
+
+                this.urlList = resp[0].records
+                this.initVideo()
+            })
         },
         computed: {
             reversedMessage: function () {
@@ -69,11 +75,19 @@
                 }
                 map[list[list.length - 1].line] = arr
                 return map
+            },title:function(){
+                window.console.log(this.name)
+                if(!this.name) {
+                    return ''
+                }
+                return this.name + ' - ' + this.urlList[this.urlIndex].name
             }
         },
-        destroyed() {
+        beforeDestroy() {
             //销毁视频播放器
-            video('myVideo').dispose()
+            if (this.player) {
+                this.player.dispose()
+            }
         },
         methods: {
             //根据id更新视频所有信息
@@ -85,12 +99,14 @@
                         this.selectUrlPageById()
                     }
                     this.loading = false
+                }).catch(()=> {
+                    this.$message.error('抱歉，由于集数较多或网络不好，更新较慢，请稍等后手动刷新本页面');
+                    this.loading = false
                 })
             },
             //切换到下一集
             switchNext(){
                 this.urlIndex = this.urlIndex + 1
-                window.console.log(this.urlIndex)
                 const url = this.urlIndex < this.urlList.length ? this.urlList[this.urlIndex].url : null
                 if(url) {
                     this.$message.success('播放：' + this.name + " - " +this.urlList[this.urlIndex].name);
@@ -100,25 +116,46 @@
                 }
             },
             switchUrl(url,name,index) {
-                video('myVideo').src(url);
-                video('myVideo').load(url);
+                this.player.src(url);
+                this.player.load(url);
                 this.urlIndex = index
-                document.title = this.name + ' - ' + name
-            },
-            getDetailById() {
-                getDetailById(this.id).then(resp => {
-                    this.videoDetail = resp
-                    this.name = resp.name
-                    document.title = this.name
-                })
-            },
-            selectUrlPageById() {
-                selectUrlPageById(this.$route.params.id, {size: this.urlSize}).then(resp => {
-                    this.urlList = resp.records
-                    this.initVideo()
-                })
+                document.title = this.title
+                this.player.removeChild('TitleBar')
+                this.player.addChild('TitleBar', {text:this.title});
             },
             initVideo() {
+                const Component = video.getComponent('Component');
+                const TitleBar = video.extend(Component, {
+                    constructor: function (player, options) {
+                        Component.apply(this, arguments);
+                        if (options.text) {
+                            this.updateTextContent(options.text);
+                        }
+                    },
+                    createEl: function () {
+                        return video.dom.createEl('div', {
+                            className: 'vjs-title-bar',
+                            style:' background: rgba(0, 0, 0, 0.3);' +
+                                '  color: white;' +
+                                '  font-size: 1.5em;' +
+                                '  padding: .5em;' +
+                                '  position: absolute;' +
+                                '  top: 0;' +
+                                '  left: 0;' +
+                                '  width: 100%;'
+                        });
+                    },
+                    updateTextContent: function (text) {
+                        if (typeof text !== 'string') {
+                            text = 'Title Unknown';
+                        }
+                        video.dom.emptyEl(this.el());
+                        video.dom.appendContent(this.el(), text);
+                    }
+                });
+                video.registerComponent('TitleBar', TitleBar);
+
+
                 const _this = this
                 const options= {
                     //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
@@ -155,6 +192,14 @@
                                 this.volume(this.volume() - 0.1)
                             }
                         }
+                    },
+                    controlBar: {
+                        //音量条竖着显示
+                        volumePanel: {
+                            inline: false
+                        },
+                        captionsButton:false,
+                        subtitlesButton: false,
                     }
                 }
                 //初始化视频方法
@@ -168,7 +213,8 @@
                         _this.$message.error("视频加载失败，切换到下一个资源")
                         _this.switchNext()
                     })
-                });
+                })
+                this.player.addChild('TitleBar', {text:this.title});
             }
         }
     }
