@@ -32,6 +32,23 @@
     </div>
 </template>
 <script>
+
+    import {
+        Divider,
+        Row,
+        Col,
+        Card,
+        Tabs,
+        Button
+    } from 'ant-design-vue'
+
+    Vue.use(Card)
+    Vue.use(Col)
+    Vue.use(Row)
+    Vue.use(Divider)
+    Vue.use(Tabs)
+    Vue.use(Button)
+
     import {selectUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
     // import videojs from 'video.js'
     // import 'video.js/dist/video-js.css'

@@ -17,6 +17,13 @@
     </div>
 </template>
 <script>
+    import {
+        Divider,
+        List
+    } from 'ant-design-vue'
+    Vue.use(List)
+    Vue.use(Divider)
+
     // 兄弟组件传值
     import bus from '../eventBus.js'
     import {selectPage} from '@/api/video'

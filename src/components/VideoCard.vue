@@ -32,6 +32,21 @@
 </template>
 
 <script>
+    import {
+        Divider,
+        Icon,
+        Card,
+        Row,
+        Col,
+        Pagination
+    } from 'ant-design-vue'
+    Vue.use(Divider)
+    Vue.use(Icon)
+    Vue.use(Card)
+    Vue.use(Row)
+    Vue.use(Col)
+    Vue.use(Pagination)
+
     export default {
         data(){
             return {

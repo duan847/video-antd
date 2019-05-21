@@ -1,11 +1,5 @@
 <template>
     <div>
-        <a-carousel effect="fade" autoplay>
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
-            <div><h3>4</h3></div>
-        </a-carousel>
         <VideoCard :obj="hot"></VideoCard>
 
             <a-divider orientation="left">
@@ -49,6 +43,23 @@
 </template>
 
 <script>
+    import {
+        Divider,
+        Icon,
+        Row,
+        Col,
+        Card,
+        Spin,
+        Button
+    } from 'ant-design-vue'
+
+    Vue.use(Card)
+    Vue.use(Col)
+    Vue.use(Row)
+    Vue.use(Divider)
+    Vue.use(Button)
+    Vue.use(Spin)
+    Vue.use(Icon)
     import {selectHotPage, selectTopPage, selectPage} from '@/api/video'
 
     import VideoCard from '@/components/VideoCard'

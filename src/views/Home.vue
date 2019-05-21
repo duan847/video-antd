@@ -16,6 +16,14 @@
 </template>
 
 <script>
+    import {
+        Layout,
+        Affix,
+    } from 'ant-design-vue'
+
+    Vue.use(Layout)
+    Vue.use(Affix)
+
     import Header from './Header'
 
     export default {

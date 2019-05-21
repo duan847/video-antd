@@ -1,9 +1,8 @@
 <template>
     <div>
         <a-row>
-            <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="8" @click="home" style="cursor:pointer" >
+            <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="8" @click="home" class="logo" >
                 <img src="../assets/logo.png" style="width: 80px" alt="首页"/>
-                <!--<router-link :to="{ name: 'one'}">首页</router-link>-->
             </a-col>
             <a-col :xs="14" :sm="10" :md="12" :lg="9" :xl="6">
                 <a-input-search
@@ -22,6 +21,21 @@
 </template>
 
 <script>
+    import {
+        Row,
+        Col,
+        Input,
+        Badge,
+        Avatar,
+        Divider
+    } from 'ant-design-vue'
+    Vue.use(Row)
+    Vue.use(Col)
+    Vue.use(Input)
+    Vue.use(Badge)
+    Vue.use(Avatar)
+    Vue.use(Divider)
+
     import bus from '../eventBus.js'
     export default {
         data(){
@@ -49,6 +63,6 @@
         padding:0 20px;
     }
     .logo{
-        /*background:url('../../assets/logo.jpg') no-repeat;*/
+        cursor:pointer
     }
 </style>
