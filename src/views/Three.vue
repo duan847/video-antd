@@ -6,7 +6,7 @@
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
 
                 <img slot="extra" width="180em" height="300em" alt="logo" :src="item.cover" @click="play(item.id)"/>
-                <router-link :to="{ name: 'two', params: { id: item.id }}">
+                <router-link :to="{ path: 'two', query: { id: item.id }}">
                     <a-list-item-meta :description="item.synopsis">
                         <a slot="title">{{item.name}}</a>
                     </a-list-item-meta>
@@ -38,7 +38,7 @@
                     this.loading = false
                 })
             },play(id){
-                this.$router.push({name: "two", params: {"id": id}})
+                this.$router.push({path: "two", query: {"id": id}})
             }
         },
         data() {

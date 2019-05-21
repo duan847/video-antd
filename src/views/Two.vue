@@ -42,7 +42,7 @@
                 videoDetail: {},
                 urlSize: -1,
                 urlList: null,
-                id: this.$route.params.id,
+                id:  this.$route.params.id || this.$route.query.id,
                 name: null,
                 player: null,
                 loading: false,
@@ -50,7 +50,7 @@
             }
         },
         created() {
-            Promise.all([selectUrlPageById(this.$route.params.id, {size: this.urlSize}),getDetailById(this.id)]).then(resp =>{
+            Promise.all([selectUrlPageById(this.id, {size: this.urlSize}),getDetailById(this.id)]).then(resp =>{
                 this.videoDetail = resp[1]
                 this.name = resp[1].name
                 document.title = this.name
