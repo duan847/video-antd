@@ -1,24 +1,27 @@
 // import Vue from 'vue'
 import router from './router'
-import {Layout} from 'ant-design-vue'
-import {Card} from 'ant-design-vue'
-import {Col} from 'ant-design-vue'
-import {Row} from 'ant-design-vue'
-import {Affix} from 'ant-design-vue'
-import {Input} from 'ant-design-vue'
-import {Badge} from 'ant-design-vue'
-import {Avatar} from 'ant-design-vue'
-import {Pagination} from 'ant-design-vue'
-import {Divider} from 'ant-design-vue'
-import {Tabs} from 'ant-design-vue'
-import {Button} from 'ant-design-vue'
-import {message} from 'ant-design-vue'
-import {List} from 'ant-design-vue'
-import {Spin} from 'ant-design-vue'
-import {Carousel} from 'ant-design-vue'
-import {Icon} from 'ant-design-vue'
-import {BackTop} from 'ant-design-vue'
+import {
+    Layout,
+    Card,
+    Col,
+    Row,
+    Affix,
+    Input,
+    Badge,
+    Avatar,
+    Pagination,
+    Divider,
+    Tabs,
+    Button,
+    message,
+    List,
+    Spin,
+    Carousel,
+    Icon,
+    BackTop
+} from 'ant-design-vue'
 import App from './App'
+
 Vue.config.productionTip = false
 Vue.prototype.$message = message;
 Vue.use(Layout)
