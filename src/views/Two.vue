@@ -33,8 +33,8 @@
 </template>
 <script>
     import {selectUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
-    import video from 'video.js'
-    import 'video.js/dist/video-js.css'
+    // import videojs from 'video.js'
+    // import 'video.js/dist/video-js.css'
 
     export default {
         data() {
@@ -124,8 +124,8 @@
                 this.player.addChild('TitleBar', {text:this.title});
             },
             initVideo() {
-                const Component = video.getComponent('Component');
-                const TitleBar = video.extend(Component, {
+                const Component = videojs.getComponent('Component');
+                const TitleBar = videojs.extend(Component, {
                     constructor: function (player, options) {
                         Component.apply(this, arguments);
                         if (options.text) {
@@ -133,7 +133,7 @@
                         }
                     },
                     createEl: function () {
-                        return video.dom.createEl('div', {
+                        return videojs.dom.createEl('div', {
                             className: 'vjs-title-bar',
                             style:' background: rgba(0, 0, 0, 0.3);' +
                                 '  color: white;' +
@@ -149,11 +149,11 @@
                         if (typeof text !== 'string') {
                             text = 'Title Unknown';
                         }
-                        video.dom.emptyEl(this.el());
-                        video.dom.appendContent(this.el(), text);
+                        videojs.dom.emptyEl(this.el());
+                        videojs.dom.appendContent(this.el(), text);
                     }
                 });
-                video.registerComponent('TitleBar', TitleBar);
+                videojs.registerComponent('TitleBar', TitleBar);
 
 
                 const _this = this
@@ -203,7 +203,7 @@
                     }
                 }
                 //初始化视频方法
-                this.player = video('myVideo', options,function(){
+                this.player = videojs('myVideo', options,function(){
                     // 结束，如果有下一集自动播放下一集
                     this.on('ended', function() {
                         _this.switchNext()

@@ -1,5 +1,5 @@
 // import Vue from 'vue'
-import Router from 'vue-router'
+// import Router from 'vue-router'
 import Home from './views/Home.vue'
 import One from './views/One.vue'
 import Two from './views/Two.vue'
@@ -7,7 +7,7 @@ import Three from './views/Three.vue'
 
 // Vue.use(Router)
 
-export default new Router({
+export default new VueRouter({
   routes: [
       {
           path: '',

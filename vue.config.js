@@ -5,7 +5,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'https://video.chenyan7.com',
+                target: 'http://video.chenyan7.com',
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -22,7 +22,7 @@ module.exports = {
             "vue":"Vue",
             "vue-router":"VueRouter",
             "axios":"axios",
-            "video": "video.js"
+            "video.js": "videojs"
         }
     }
 }

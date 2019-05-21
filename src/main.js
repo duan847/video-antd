@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import router from './router'
 import {Layout} from 'ant-design-vue'
 import {Card} from 'ant-design-vue'
