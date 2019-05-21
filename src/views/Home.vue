@@ -6,8 +6,10 @@
                     <Header/>
                 </a-layout-header>
             </a-affix>
-            <a-layout-content>
+            <a-layout-content><div>
+                <a-back-top />
                 <router-view></router-view>
+            </div>
             </a-layout-content>
         </a-layout>
     </div>
