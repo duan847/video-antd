@@ -36,7 +36,7 @@
             onSearch (text) {
                 if(text) {
                     bus.$emit('eventBus', text)
-                    this.$router.push({name: "three", params: {"text": text}})
+                    this.$router.push({path: "three", query: {"text": text}})
                 }
             },
         },

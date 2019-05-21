@@ -44,8 +44,8 @@
         data() {
             return {
                 loading: false,
-                name: this.$route.params.text,
-                type: this.$route.params.type,
+                name: this.$route.query.text,
+                type: this.$route.query.type,
                 listData: null,
                 pagination: {
                     onChange: (page) => {
