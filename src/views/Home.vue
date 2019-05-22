@@ -9,7 +9,7 @@
             <a-layout-content>
                 <div>
                     <a-back-top/>
-                    <keep-alive>
+                    <keep-alive exclude="two">
                         <router-view></router-view>
                     </keep-alive>
                 </div>

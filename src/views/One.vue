@@ -47,6 +47,7 @@
 
     import VideoCard from '@/components/VideoCard'
     export default {
+        name: 'one',
         components: {
             VideoCard
         },

@@ -22,6 +22,7 @@
     import {selectPage} from '@/api/video'
 
     export default {
+        name: 'three',
         methods: {
             selectPage() {
                 this.loading = true
