@@ -13,6 +13,18 @@ export function selectHotPage(o) {
 }
 
 /**
+ * 获取热播电视剧
+ * @param o
+ */
+export function selectMVHotPage(o) {
+    return request({
+        url: '/video/mvhot/page',
+        method: 'get',
+        params: o
+    })
+}
+
+/**
  * 分页获取top榜
  * @param o
  */

@@ -6,13 +6,15 @@
                 <a-icon type="video-camera" theme="twoTone" twoToneColor="#eb2f96"/>
                 <b class="title"> 电视剧</b>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('12')" :disabled="tv.type === '12' ? true : false">国产</a>
+                <a @click="selectMVHotPage()" :disabled="tv.type === 131 ? true : false">热播</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('14')" :disabled="tv.type === '14' ? true : false">港台</a>
+                <a @click="switchTV(12)" :disabled="tv.type === 12 ? true : false">国产</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('8')" :disabled="tv.type === '8' ? true : false">欧美</a>
+                <a @click="switchTV(14)" :disabled="tv.type === 14 ? true : false">港台</a>
                 <a-divider type="vertical"/>
-                <a @click="switchTV('7')" :disabled="tv.type === '7' ? true : false">日韩</a>
+                <a @click="switchTV(8)" :disabled="tv.type === 8 ? true : false">欧美</a>
+                <a-divider type="vertical"/>
+                <a @click="switchTV(7)" :disabled="tv.type === 7 ? true : false">日韩</a>
             </a-divider>
         <a-row ref="container">
             <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in tv.list" :key="index" class="col-padding">
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-    import {selectHotPage, selectTopPage, selectPage} from '@/api/video'
+    import {selectHotPage, selectMVHotPage, selectTopPage, selectPage} from '@/api/video'
 
     import VideoCard from '@/components/VideoCard'
     export default {
@@ -61,6 +63,17 @@
                     total: 1,
                     loading: false,
                     title:' 热映电影',
+                    icon:'fire',
+                    showPagination:true,
+                },
+                mvhot: {
+                    size: 12,
+                    list: [],
+                    current: 1,
+                    type:-1,
+                    total: 1,
+                    loading: false,
+                    title:' 热播',
                     icon:'fire',
                     showPagination:true,
                 },
@@ -116,6 +129,17 @@
                     this.hot.current = parseInt(resp.current)
                     this.hot.total = parseInt(resp.total)
                     this.hot.loading = false
+                })
+            },
+            selectMVHotPage() {
+                this.tv.loading = true
+                this.tv.list = []
+                this.tv.type = 131
+                selectMVHotPage({current: this.tv.current, size: this.tv.size}).then(resp => {
+                    this.tv.list = resp.records
+                    this.tv.current = parseInt(resp.current)
+                    this.tv.total = parseInt(resp.total)
+                    this.tv.loading = false
                 })
             },
             selectTopPage() {
@@ -197,7 +221,8 @@
             //分页查询排行榜电影
             this.selectTopPage()
             //分页查询电视剧
-            this.selectByMVPage()
+            // this.selectByMVPage()
+            this.selectMVHotPage()
             //分页查询综艺节目
             this.selectByVarietyShowPage()
             //分页查询动漫
