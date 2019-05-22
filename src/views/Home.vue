@@ -6,10 +6,13 @@
                     <Header/>
                 </a-layout-header>
             </a-affix>
-            <a-layout-content><div>
-                <a-back-top />
-                <router-view></router-view>
-            </div>
+            <a-layout-content>
+                <div>
+                    <a-back-top/>
+                    <keep-alive>
+                        <router-view></router-view>
+                    </keep-alive>
+                </div>
             </a-layout-content>
         </a-layout>
     </div>
