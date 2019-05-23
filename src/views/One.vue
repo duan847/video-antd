@@ -21,7 +21,7 @@
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
                     <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
                         <div slot="cover" class="cover" >
-                            <img alt="图片" :src="item.cover" class="img" />
+                            <img alt="图片" v-lazy="item.cover" class="img" />
                             <div class="remarks" >
                                 {{item.remarks}}</div>
                         </div>

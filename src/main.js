@@ -20,7 +20,6 @@ import {
     BackTop
 } from 'ant-design-vue'
 import App from './App'
-
 Vue.config.productionTip = false
 Vue.prototype.$message = message;
 Vue.use(Layout)
@@ -39,6 +38,10 @@ Vue.use(List)
 Vue.use(Spin)
 Vue.use(Icon)
 Vue.use(BackTop)
+
+//图片懒加载
+Vue.use(VueLazyload)
+
 
 new Vue({
     router,

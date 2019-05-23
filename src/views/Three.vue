@@ -5,7 +5,7 @@
         <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
 
-                <img slot="extra" width="180em" height="300em" alt="logo" :src="item.cover" @click="play(item.id)"/>
+                <img slot="extra" width="180em" height="300em" alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
                 <router-link :to="{ path: 'two', query: { id: item.id }}">
                     <a-list-item-meta :description="item.synopsis">
                         <a slot="title">{{item.name}}</a>
