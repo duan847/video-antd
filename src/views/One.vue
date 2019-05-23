@@ -1,42 +1,6 @@
 <template>
     <div>
         <VideoCard :obj="hot"></VideoCard>
-
-        <!--<a-divider orientation="left">-->
-        <!--<a-icon type="video-camera" theme="twoTone" twoToneColor="#eb2f96"/>-->
-        <!--<b class="title"> 电视剧<a-divider type="vertical"/></b>-->
-        <!--<a @click="selectMVHotPage()" :disabled="tv.type === 131 ? true : false">热播<a-divider type="vertical"/></a>-->
-        <!--<a @click="switchTV(12)" :disabled="tv.type === 12 ? true : false">国产<a-divider type="vertical"/></a>-->
-        <!--<a @click="switchTV(14)" :disabled="tv.type === 14 ? true : false">港台<a-divider type="vertical"/></a>-->
-        <!--<a @click="switchTV(8)" :disabled="tv.type === 8 ? true : false">欧美<a-divider type="vertical"/></a>-->
-        <!--<a @click="switchTV(7)" :disabled="tv.type === 7 ? true : false">日韩<a-divider type="vertical"/></a>-->
-        <!--</a-divider>-->
-        <!--<a-row ref="container">-->
-        <!--<a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in tv.list" :key="index" class="col-padding">-->
-        <!--<router-link :to="{ name: 'two', params: { id: item.id }}">-->
-        <!--<a-card hoverable :bodyStyle="{padding:'10px 2px'}" >-->
-        <!--<div slot="cover" class="cover" >-->
-        <!--<img alt="图片" v-lazy="item.cover" class="img" />-->
-        <!--<div class="remarks" >-->
-        <!--{{item.remarks}}</div>-->
-        <!--</div>-->
-        <!--<a-card-meta :title="item.name"/>-->
-        <!--</a-card>-->
-        <!--</router-link>-->
-        <!--</a-col>-->
-        <!--<a-spin v-if="tv.loading"/>-->
-        <!--</a-row>-->
-        <!--<a-row style="text-align: center" v-if="tv.showPagination && tv.total > tv.size">-->
-        <!--<a-pagination :pageSize.sync="tv.size" v-model="tv.current" :total="tv.total" @change="mvHotSizeChange"/>-->
-        <!--</a-row>-->
-        <!--<a-row>-->
-
-        <!--<div v-if="tv.showMore && tv.total > tv.size" class="load-more">-->
-        <!--<router-link :to="{ path: 'three', query: { type: tv.type }}">-->
-        <!--<a-button type="dashed">查看更多</a-button>-->
-        <!--</router-link>-->
-        <!--</div>-->
-        <!--</a-row>-->
         <VideoCard :obj="tv"></VideoCard>
         <VideoCard :obj="top"></VideoCard>
         <VideoCard :obj="varietyShow"></VideoCard>

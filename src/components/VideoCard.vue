@@ -2,14 +2,24 @@
     <div>
         <a-divider orientation="left">
             <a-icon :type="obj.icon" theme="twoTone" twoToneColor="#eb2f96"/>
-            <b class="title"> {{obj.title}}</b> <a-divider type="vertical" v-if="obj.classify !== undefined"/>
-
-            <a @click="switchClassify(item)" v-for="(item,index) in obj.classify" :disabled="obj.type === item.key ? true : false" :key="index">{{item.key | dist}}<a-divider type="vertical"/></a>
+            <b class="title"> {{obj.title}}</b> &nbsp;<a @click="switchClassify(item)" v-for="(item,index) in obj.classify" :disabled="obj.type === item.key ? true : false" :key="index">{{item.key | dist}}<a-divider type="vertical"  v-if="obj.classify.length - 1 !== index"/></a>
         </a-divider>
+<!--        没有数据时显示加载中-->
+                <a-row  v-if="obj.loading">
+                    <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(index) in obj.size" :key="index" class="col-padding">
+                        <a-card :bodyStyle="{padding:'0.52em 0.1em'}">
+                            <div slot="cover" class="cover" >
+                                <a-spin />
+                                <div class="remarks"></div>
+                            </div>
+                            <span :slot="title">&nbsp;</span>
+                        </a-card>
+                    </a-col>
+                </a-row>
         <a-row>
             <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">
                 <router-link :to="{ name: 'two', params: { id: item.id }}">
-                    <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
+                    <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}" >
                         <div slot="cover" class="cover" >
                             <img alt="图片" v-lazy="item.cover" class="img" />
                                                     <div class="remarks" >
@@ -19,12 +29,12 @@
                     </a-card>
                 </router-link>
             </a-col>
-            <a-spin v-if="obj.loading"/>
+<!--            <a-spin v-if="obj.loading"/>-->
         </a-row>
-        <a-row style="text-align: center" v-if="obj.showPagination && obj.total > obj.size">
-            <a-pagination :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange"/>
+        <a-row v-if="obj.showPagination && obj.total > obj.size">
+            <a-pagination :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange" class="load-more"/>
         </a-row>
-        <a-row style="text-align: center" v-if="obj.showMore && obj.total > obj.size">
+        <a-row v-if="obj.showMore && obj.total > obj.size">
             <div v-if="!obj.loading" class="load-more">
                 <router-link :to="{ path: 'three', query: { type: obj.type }}">
                     <a-button type="dashed">查看更多</a-button>
@@ -67,9 +77,10 @@
     }
     .load-more {
         text-align: center;
-        margin-top: 20px;
-        height: 32px;
-        line-height: 32px;
+        margin-top: 3px;
+        margin-bottom: 12px;
+        /*height: 32px;*/
+        /*line-height: 32px;*/
     }
     .col-padding{
         padding: 0 4px 8px 4px;
