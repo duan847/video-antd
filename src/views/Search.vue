@@ -94,7 +94,7 @@
         float:left;
         position:relative;
         width:12em;
-        height:18em;
+        height:20em;
         margin-right: 10px;
     }
     .name{
