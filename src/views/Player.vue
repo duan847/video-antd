@@ -136,7 +136,7 @@
                     createEl: function () {
                         return videojs.dom.createEl('div', {
                             className: 'vjs-title-bar',
-                            style:' background: rgba(0, 0, 0, 0.3);' +
+                            style:' background: rgba(0, 0, 0, 0.2);' +
                                 '  color: white;' +
                                 '  font-size: 1.5em;' +
                                 '  padding: .5em;' +
