@@ -4,7 +4,7 @@
             <a-icon :type="obj.icon" theme="twoTone" twoToneColor="#eb2f96"/>
             <b class="title"> {{obj.title}}</b> <a-divider type="vertical" v-if="obj.classify !== undefined"/>
 
-            <a @click="switchClassify(item)" v-for="(item,index) in obj.classify" :disabled="obj.type === item.key ? true : false" :key="index">{{item.key}}<a-divider type="vertical"/></a>
+            <a @click="switchClassify(item)" v-for="(item,index) in obj.classify" :disabled="obj.type === item.key ? true : false" :key="index">{{item.key | dist}}<a-divider type="vertical"/></a>
         </a-divider>
         <a-row>
             <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-divider orientation="left">搜索 ：{{name || type}}</a-divider>
+        <a-divider orientation="left">搜索 ：{{name || type | dist}}</a-divider>
 
         <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">

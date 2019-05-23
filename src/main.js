@@ -20,6 +20,7 @@ import {
     BackTop
 } from 'ant-design-vue'
 import App from './App'
+
 Vue.config.productionTip = false
 Vue.prototype.$message = message;
 Vue.use(Layout)
@@ -42,7 +43,21 @@ Vue.use(BackTop)
 //图片懒加载
 Vue.use(VueLazyload)
 
-
+Vue.filter('dist', function (value) {
+    if (!value) return ''
+    switch (value) {
+        case 131:
+            return '热播'
+        case 12:
+            return '国产'
+        case 14:
+            return '港台'
+        case 8:
+            return '欧美'
+        case 7:
+            return '日韩'
+    }
+})
 new Vue({
     router,
     render: h => h(App)
