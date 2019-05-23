@@ -7,7 +7,6 @@ import {
     Row,
     Affix,
     Input,
-    Badge,
     Avatar,
     Pagination,
     Divider,
@@ -29,7 +28,6 @@ Vue.use(Col)
 Vue.use(Row)
 Vue.use(Affix)
 Vue.use(Input)
-Vue.use(Badge)
 Vue.use(Avatar)
 Vue.use(Pagination)
 Vue.use(Divider)
