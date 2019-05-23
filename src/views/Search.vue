@@ -1,14 +1,17 @@
 <template>
-    <div>
+    <div style="padding-bottom: 10px">
         <a-divider orientation="left">搜索 ：{{this.name || (type | dist)}}</a-divider>
+        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"  :grid="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" >
+            <a-list-item slot="renderItem" slot-scope="item" key="item.title" :description="item.name" style="display:flex;padding-right: 10px" >
+                <div class="cover">
+                    <img class="img"  alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
+                    <div class="remarks" >
+                        {{item.remarks}}</div>
+                </div>
 
-        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
-            <a-list-item slot="renderItem" slot-scope="item" key="item.title">
-
-                <img slot="extra" width="180em" height="300em" alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
                 <router-link :to="{ path: 'player', query: { id: item.id }}">
                     <a-list-item-meta :description="item.synopsis">
-                        <a slot="title">{{item.name}}</a>
+                        <a slot="title" class="name">{{item.name}}</a><span>a</span>
                     </a-list-item-meta>
                     {{item.content}}
                 </router-link>
@@ -70,4 +73,32 @@
     }
 </script>
 <style scoped>
+    .img{
+        width: 100%;
+        height: 100%;
+        cursor:pointer;
+    }
+
+    .remarks{
+        position: absolute;
+        bottom: 7px;
+        right: 5px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #fff;
+        background: rgba(0,0,0,.6);
+        padding: 0 7px;
+        border-radius: 10px;
+    }
+    .cover{
+        float:left;
+        position:relative;
+        width:12em;
+        height:18em;
+        margin-right: 10px;
+    }
+    .name{
+        font-size: 20px;
+        color: lightgreen
+    }
 </style>
