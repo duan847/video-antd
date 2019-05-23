@@ -31,9 +31,13 @@
             </a-col>
             <a-spin v-if="tv.loading"/>
         </a-row>
+        <a-row style="text-align: center" v-if="tv.showPagination && tv.total > tv.size">
+            <a-pagination :pageSize.sync="tv.size" v-model="tv.current" :total="tv.total" @change="mvHotSizeChange"/>
+        </a-row>
         <a-row>
-            <div v-if="!tv.loading" class="load-more">
-                <router-link :to="{ name: 'three', params: { type: tv.type }}">
+
+            <div v-if="tv.showMore && tv.total > tv.size" class="load-more">
+                <router-link :to="{ path: 'three', query: { type: tv.type }}">
                     <a-button type="dashed">查看更多</a-button>
                 </router-link>
             </div>
@@ -95,7 +99,9 @@
                     total: 1,
                     loading: false,
                     type: '12',
-                    title:' 最新电视剧'
+                    title:' 最新电视剧',
+                    showPagination:false,
+                    showMore:false
                 }, varietyShow: {
                     size: 12,
                     list: [],
@@ -140,6 +146,8 @@
                     this.tv.current = parseInt(resp.current)
                     this.tv.total = parseInt(resp.total)
                     this.tv.loading = false
+                    this.tv.showPagination = true
+                    this.tv.showMore = false
                 })
             },
             selectTopPage() {
@@ -202,16 +210,23 @@
             },
             sizeChange(type) {
                 switch (type) {
-                    case -1:
+                    case this.hot.type:
                         this.selectHotPage()
                         break
-                    case -2:
+                    case this.top.type:
                         this.selectTopPage()
                         break
+
                 }
+            },
+            mvHotSizeChange(page) {
+                this.tv.current = page
+                this.selectMVHotPage()
             },
             switchTV(type) {
                 this.tv.type = type
+                this.tv.showPagination = false
+                this.tv.showMore = true
                 this.selectByMVPage()
             }
         },

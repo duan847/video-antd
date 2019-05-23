@@ -23,7 +23,7 @@
         </a-row>
         <a-row style="text-align: center" v-if="obj.showMore && obj.total > obj.size">
             <div v-if="!obj.loading" class="load-more">
-                <router-link :to="{ name: 'three', params: { type: obj.type }}">
+                <router-link :to="{ path: 'three', query: { type: obj.type }}">
                     <a-button type="dashed">查看更多</a-button>
                 </router-link>
             </div>
