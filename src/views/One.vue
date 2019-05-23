@@ -2,46 +2,42 @@
     <div>
         <VideoCard :obj="hot"></VideoCard>
 
-            <a-divider orientation="left">
-                <a-icon type="video-camera" theme="twoTone" twoToneColor="#eb2f96"/>
-                <b class="title"> 电视剧</b>
-                <a-divider type="vertical"/>
-                <a @click="selectMVHotPage()" :disabled="tv.type === 131 ? true : false">热播</a>
-                <a-divider type="vertical"/>
-                <a @click="switchTV(12)" :disabled="tv.type === 12 ? true : false">国产</a>
-                <a-divider type="vertical"/>
-                <a @click="switchTV(14)" :disabled="tv.type === 14 ? true : false">港台</a>
-                <a-divider type="vertical"/>
-                <a @click="switchTV(8)" :disabled="tv.type === 8 ? true : false">欧美</a>
-                <a-divider type="vertical"/>
-                <a @click="switchTV(7)" :disabled="tv.type === 7 ? true : false">日韩</a>
-            </a-divider>
-        <a-row ref="container">
-            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in tv.list" :key="index" class="col-padding">
-                <router-link :to="{ name: 'two', params: { id: item.id }}">
-                    <a-card hoverable :bodyStyle="{padding:'10px 2px'}" >
-                        <div slot="cover" class="cover" >
-                            <img alt="图片" v-lazy="item.cover" class="img" />
-                            <div class="remarks" >
-                                {{item.remarks}}</div>
-                        </div>
-                        <a-card-meta :title="item.name"/>
-                    </a-card>
-                </router-link>
-            </a-col>
-            <a-spin v-if="tv.loading"/>
-        </a-row>
-        <a-row style="text-align: center" v-if="tv.showPagination && tv.total > tv.size">
-            <a-pagination :pageSize.sync="tv.size" v-model="tv.current" :total="tv.total" @change="mvHotSizeChange"/>
-        </a-row>
-        <a-row>
+        <!--<a-divider orientation="left">-->
+        <!--<a-icon type="video-camera" theme="twoTone" twoToneColor="#eb2f96"/>-->
+        <!--<b class="title"> 电视剧<a-divider type="vertical"/></b>-->
+        <!--<a @click="selectMVHotPage()" :disabled="tv.type === 131 ? true : false">热播<a-divider type="vertical"/></a>-->
+        <!--<a @click="switchTV(12)" :disabled="tv.type === 12 ? true : false">国产<a-divider type="vertical"/></a>-->
+        <!--<a @click="switchTV(14)" :disabled="tv.type === 14 ? true : false">港台<a-divider type="vertical"/></a>-->
+        <!--<a @click="switchTV(8)" :disabled="tv.type === 8 ? true : false">欧美<a-divider type="vertical"/></a>-->
+        <!--<a @click="switchTV(7)" :disabled="tv.type === 7 ? true : false">日韩<a-divider type="vertical"/></a>-->
+        <!--</a-divider>-->
+        <!--<a-row ref="container">-->
+        <!--<a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in tv.list" :key="index" class="col-padding">-->
+        <!--<router-link :to="{ name: 'two', params: { id: item.id }}">-->
+        <!--<a-card hoverable :bodyStyle="{padding:'10px 2px'}" >-->
+        <!--<div slot="cover" class="cover" >-->
+        <!--<img alt="图片" v-lazy="item.cover" class="img" />-->
+        <!--<div class="remarks" >-->
+        <!--{{item.remarks}}</div>-->
+        <!--</div>-->
+        <!--<a-card-meta :title="item.name"/>-->
+        <!--</a-card>-->
+        <!--</router-link>-->
+        <!--</a-col>-->
+        <!--<a-spin v-if="tv.loading"/>-->
+        <!--</a-row>-->
+        <!--<a-row style="text-align: center" v-if="tv.showPagination && tv.total > tv.size">-->
+        <!--<a-pagination :pageSize.sync="tv.size" v-model="tv.current" :total="tv.total" @change="mvHotSizeChange"/>-->
+        <!--</a-row>-->
+        <!--<a-row>-->
 
-            <div v-if="tv.showMore && tv.total > tv.size" class="load-more">
-                <router-link :to="{ path: 'three', query: { type: tv.type }}">
-                    <a-button type="dashed">查看更多</a-button>
-                </router-link>
-            </div>
-        </a-row>
+        <!--<div v-if="tv.showMore && tv.total > tv.size" class="load-more">-->
+        <!--<router-link :to="{ path: 'three', query: { type: tv.type }}">-->
+        <!--<a-button type="dashed">查看更多</a-button>-->
+        <!--</router-link>-->
+        <!--</div>-->
+        <!--</a-row>-->
+        <VideoCard :obj="tv"></VideoCard>
         <VideoCard :obj="top"></VideoCard>
         <VideoCard :obj="varietyShow"></VideoCard>
         <VideoCard :obj="anime"></VideoCard>
@@ -52,6 +48,7 @@
     import {selectSortPage, selectPage} from '@/api/video'
 
     import VideoCard from '@/components/VideoCard'
+
     export default {
         name: 'one',
         components: {
@@ -66,9 +63,9 @@
                     type: 128,
                     total: 1,
                     loading: false,
-                    title:' 热映电影',
-                    icon:'fire',
-                    showPagination:true,
+                    title: ' 热映电影',
+                    icon: 'fire',
+                    showPagination: true,
                 },
                 mvhot: {
                     size: 12,
@@ -77,9 +74,9 @@
                     type: 131,
                     total: 1,
                     loading: false,
-                    title:' 热播',
-                    icon:'fire',
-                    showPagination:true,
+                    title: ' 热播',
+                    icon: 'fire',
+                    showPagination: true,
                 },
                 top: {
                     size: 12,
@@ -88,9 +85,9 @@
                     type: 129,
                     total: 1,
                     loading: false,
-                    title:' 电影排行榜',
-                    icon:'crown',
-                    showPagination:true
+                    title: ' 电影排行榜',
+                    icon: 'crown',
+                    showPagination: true
                 },
                 tv: {
                     size: 12,
@@ -98,10 +95,17 @@
                     current: 1,
                     total: 1,
                     loading: false,
-                    type: '12',
-                    title:' 最新电视剧',
-                    showPagination:false,
-                    showMore:false
+                    // type: 12,
+                    title: ' 最新电视剧',
+                    showPagination: false,
+                    showMore: false,
+                    classify: [
+                        {"key": 131, value: {"showPagination": true}},
+                        {"key": 12, value: {"showMore": true}},
+                        {"key": 14, value: {"showMore": true}},
+                        {"key": 8, value: {"showMore": true}},
+                        {"key": 7, value: {"showMore": true}}
+                    ]
                 }, varietyShow: {
                     size: 12,
                     list: [],
@@ -109,9 +113,9 @@
                     total: 1,
                     loading: false,
                     type: '11',
-                    title:' 综艺',
-                    icon:'video-camera',
-                    showMore:true
+                    title: ' 综艺',
+                    icon: 'video-camera',
+                    showMore: true
                 },
                 anime: {
                     size: 12,
@@ -120,9 +124,9 @@
                     total: 1,
                     loading: false,
                     type: '10',
-                    title:' 动漫',
-                    icon:'video-camera',
-                    showMore:true
+                    title: ' 动漫',
+                    icon: 'video-camera',
+                    showMore: true
                 }
             }
         },
@@ -216,18 +220,18 @@
                     case this.top.type:
                         this.selectTopPage()
                         break
+                    case this.mvhot.type:
+                        this.selectMVHotPage()
+                        break
 
                 }
             },
-            mvHotSizeChange(page) {
-                this.tv.current = page
-                this.selectMVHotPage()
-            },
             switchTV(type) {
-                this.tv.type = type
-                this.tv.showPagination = false
-                this.tv.showMore = true
-                this.selectByMVPage()
+                if(type === 131) {
+                    this.selectMVHotPage()
+                }else {
+                    this.selectByMVPage()
+                }
             }
         },
         created() {
@@ -263,33 +267,37 @@
     .title {
         font-size: 20px;
     }
+
     .load-more {
         text-align: center;
         margin-top: 20px;
         height: 32px;
         line-height: 32px;
     }
-    .col-padding{
+
+    .col-padding {
         padding: 0 4px 8px 4px;
     }
 
-    .img{
+    .img {
         width: 100%;
         height: 100%;
     }
-    .remarks{
+
+    .remarks {
         position: absolute;
         bottom: 7px;
         right: 5px;
         font-size: 12px;
         line-height: 20px;
         color: #fff;
-        background: rgba(0,0,0,.6);
+        background: rgba(0, 0, 0, .6);
         padding: 0 7px;
         border-radius: 10px;
     }
-    .cover{
-        position:relative;
+
+    .cover {
+        position: relative;
         height: 13em;
     }
 </style>
