@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import {selectHotPage, selectMVHotPage, selectTopPage, selectPage} from '@/api/video'
+    import {selectSortPage, selectPage} from '@/api/video'
 
     import VideoCard from '@/components/VideoCard'
     export default {
@@ -59,7 +59,7 @@
                     size: 12,
                     list: [],
                     current: 1,
-                    type:-1,
+                    type: 128,
                     total: 1,
                     loading: false,
                     title:' 热映电影',
@@ -70,7 +70,7 @@
                     size: 12,
                     list: [],
                     current: 1,
-                    type:-1,
+                    type: 131,
                     total: 1,
                     loading: false,
                     title:' 热播',
@@ -81,7 +81,7 @@
                     size: 12,
                     list: [],
                     current: 1,
-                    type:-2,
+                    type: 129,
                     total: 1,
                     loading: false,
                     title:' 电影排行榜',
@@ -124,7 +124,7 @@
             selectHotPage() {
                 this.hot.loading = true
                 this.hot.list = []
-                selectHotPage({current: this.hot.current, size: this.hot.size}).then(resp => {
+                selectSortPage({current: this.hot.current, size: this.hot.size, type: this.hot.type}).then(resp => {
                     this.hot.list = resp.records
                     this.hot.current = parseInt(resp.current)
                     this.hot.total = parseInt(resp.total)
@@ -135,7 +135,7 @@
                 this.tv.loading = true
                 this.tv.list = []
                 this.tv.type = 131
-                selectMVHotPage({current: this.tv.current, size: this.tv.size}).then(resp => {
+                selectSortPage({current: this.tv.current, size: this.tv.size, type: this.tv.type}).then(resp => {
                     this.tv.list = resp.records
                     this.tv.current = parseInt(resp.current)
                     this.tv.total = parseInt(resp.total)
@@ -145,7 +145,7 @@
             selectTopPage() {
                 this.top.loading = true
                 this.top.list = []
-                selectTopPage({current: this.top.current, size: this.top.size}).then(resp => {
+                selectSortPage({current: this.top.current, size: this.top.size, type: this.top.type}).then(resp => {
                     this.top.list = resp.records
                     this.top.current = parseInt(resp.current)
                     this.top.total = parseInt(resp.total)

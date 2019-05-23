@@ -1,36 +1,12 @@
 import request from '@/utils/http'
 
 /**
- * 获取热播视频
+ * 根据类型分页查询视频
  * @param o
  */
-export function selectHotPage(o) {
+export function selectSortPage(o) {
     return request({
-        url: '/video/hot/page',
-        method: 'get',
-        params: o
-    })
-}
-
-/**
- * 获取热播电视剧
- * @param o
- */
-export function selectMVHotPage(o) {
-    return request({
-        url: '/video/mvhot/page',
-        method: 'get',
-        params: o
-    })
-}
-
-/**
- * 分页获取top榜
- * @param o
- */
-export function selectTopPage(o) {
-    return request({
-        url: '/video/top/page',
+        url: '/video/sort/page',
         method: 'get',
         params: o
     })
