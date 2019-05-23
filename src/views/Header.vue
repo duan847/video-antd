@@ -14,26 +14,20 @@
             </a-col>
             <a-divider/>
         </a-row>
-
     </div>
 </template>
 
 <script>
     import bus from '../eventBus.js'
     export default {
-        data(){
-            return {
-                logo : '../../assets/img/login.png'
-            }
-        },
         methods: {
             home(){
-                this.$router.push({name: "one"})
+                this.$router.push({name: "home"})
             },
             onSearch (text) {
                 if(text) {
                     bus.$emit('eventBus', text)
-                    this.$router.push({path: "three", query: {"text": text}})
+                    this.$router.push({path: "search", query: {name: text}})
                 }
             },
         },

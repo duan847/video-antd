@@ -2,13 +2,13 @@ import request from '@/utils/http'
 
 /**
  * 根据类型分页查询视频
- * @param o
+ * @param query
  */
-export function selectSortPage(o) {
+export function selectSortPage(query) {
     return request({
         url: '/video/sort/page',
         method: 'get',
-        params: o
+        params: query
     })
 }
 
@@ -25,19 +25,19 @@ export function getDetailById(id) {
 
 /**
  * 根据id分页查询视频url
- * @param o
+ * @param query
  */
-export function selectUrlPageById(id,o) {
+export function selectUrlPageById(id,query) {
     return request({
         url: '/video/'+id+'/url/page',
         method: 'get',
-        params: o
+        params: query
     })
 }
 
 /**
  * 根据id更新视频所有信息
- * @param o
+ * @param id
  */
 export function updateAllInfoById(id) {
     return request({

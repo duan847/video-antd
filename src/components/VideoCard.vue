@@ -18,7 +18,7 @@
                 </a-row>
         <a-row>
             <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">
-                <router-link :to="{ name: 'two', params: { id: item.id }}">
+                <router-link :to="{ name: 'player', params: { id: item.id }}">
                     <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}" >
                         <div slot="cover" class="cover" >
                             <img alt="图片" v-lazy="item.cover" class="img" />
@@ -36,7 +36,7 @@
         </a-row>
         <a-row v-if="obj.showMore && obj.total > obj.size">
             <div v-if="!obj.loading" class="load-more">
-                <router-link :to="{ path: 'three', query: { type: obj.type }}">
+                <router-link :to="{ path: 'search', query: { type: obj.type }}">
                     <a-button type="dashed">查看更多</a-button>
                 </router-link>
             </div>
@@ -79,8 +79,6 @@
         text-align: center;
         margin-top: 3px;
         margin-bottom: 12px;
-        /*height: 32px;*/
-        /*line-height: 32px;*/
     }
     .col-padding{
         padding: 0 4px 8px 4px;

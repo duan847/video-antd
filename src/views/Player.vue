@@ -37,7 +37,7 @@
     // import 'video.js/dist/video-js.css'
 
     export default {
-        name: 'two',
+        name: 'player',
         data() {
             return {
                 videoDetail: {},

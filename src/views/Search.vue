@@ -1,12 +1,12 @@
 <template>
     <div>
-        <a-divider orientation="left">搜索 ：{{name || type | dist}}</a-divider>
+        <a-divider orientation="left">搜索 ：{{this.name || (type | dist)}}</a-divider>
 
         <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading">
             <a-list-item slot="renderItem" slot-scope="item" key="item.title">
 
                 <img slot="extra" width="180em" height="300em" alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
-                <router-link :to="{ path: 'two', query: { id: item.id }}">
+                <router-link :to="{ path: 'player', query: { id: item.id }}">
                     <a-list-item-meta :description="item.synopsis">
                         <a slot="title">{{item.name}}</a>
                     </a-list-item-meta>
@@ -22,7 +22,7 @@
     import {selectPage} from '@/api/video'
 
     export default {
-        name: 'three',
+        name: 'search',
         methods: {
             selectPage() {
                 this.loading = true
@@ -39,13 +39,13 @@
                     this.loading = false
                 })
             },play(id){
-                this.$router.push({path: "two", query: {"id": id}})
+                this.$router.push({path: "player", query: {id: id}})
             }
         },
         data() {
             return {
                 loading: false,
-                name: this.$route.query.text,
+                name: this.$route.query.name,
                 type: this.$route.query.type,
                 listData: null,
                 pagination: {
