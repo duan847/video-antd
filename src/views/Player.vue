@@ -166,7 +166,7 @@
                     //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
                     preload: "auto",
                     //倍速
-                    playbackRates: [0.5, 1,1.25, 1.5, 2, 4],
+                    playbackRates: [0.5, 1,1.25, 1.5,1.75, 2, 4],
                     responsive: true,
                     notSupportedMessage:"视频加载失败，正在切换视频源",
                     sources: [{

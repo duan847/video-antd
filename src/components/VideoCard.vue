@@ -18,7 +18,7 @@
                 </a-row>
         <a-row>
             <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">
-                <router-link :to="{ name: 'player', params: { id: item.id }}">
+                <router-link :to="{ path: 'player', query: { id: item.id }}">
                     <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}" >
                         <div slot="cover" class="cover" >
                             <img alt="图片" v-lazy="item.cover" class="img" />
