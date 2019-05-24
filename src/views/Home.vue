@@ -32,9 +32,16 @@
                     type: 128,
                     total: 1,
                     loading: false,
-                    title: ' 热映电影',
+                    title: ' 火热电影',
+                    movieHotType: 128,
+                    movieRecentType: 132,
                     icon: 'fire',
-                    showPagination: true,
+                    showPagination: false,
+                    showMore: false,
+                    classify: [
+                        {"key": 128, value: {"showPagination": true}},
+                        {"key": 132, value: {"showPagination": true}}
+                    ]
                 },
                 tvHot: {
                     size: 12,
@@ -100,16 +107,23 @@
             }
         },
         methods: {
-            selectHotPage() {
+            /**
+             * 分页查询火热电影（热映电影、热播电影）
+             * @param type
+             */
+            selectMovieHotPage(type) {
                 this.movieHot.loading = true
                 this.movieHot.list = []
-                selectSortPage({current: this.movieHot.current, size: this.movieHot.size, type: this.movieHot.type}).then(resp => {
+                selectSortPage({current: this.movieHot.current, size: this.movieHot.size, type: type}).then(resp => {
                     this.movieHot.list = resp.records
                     this.movieHot.current = parseInt(resp.current)
                     this.movieHot.total = parseInt(resp.total)
                     this.movieHot.loading = false
                 })
             },
+            /**
+             * 分页查询热播电视剧
+             */
             selectTvHotPage() {
                 this.tv.loading = true
                 this.tv.list = []
@@ -123,7 +137,10 @@
                     this.tv.showMore = false
                 })
             },
-            selectTopPage() {
+            /**
+             * 分页查询电影排行榜
+             */
+            selectMovieTopPage() {
                 this.movieTop.loading = true
                 this.movieTop.list = []
                 selectSortPage({current: this.movieTop.current, size: this.movieTop.size, type: this.movieTop.type}).then(resp => {
@@ -133,6 +150,9 @@
                     this.movieTop.loading = false
                 })
             },
+            /**
+             * 分页查询电视剧
+             */
             selectByTvPage() {
                 this.tv.loading = true
                 this.tv.list = []
@@ -149,6 +169,9 @@
                     this.tv.loading = false
                 })
             },
+            /**
+             * 分页查询综艺视频
+             */
             selectByVarietyShowPage() {
                 this.varietyShow.loading = true
                 this.varietyShow.list = []
@@ -165,6 +188,9 @@
                     this.varietyShow.loading = false
                 })
             },
+            /**
+             * 分页查询动漫
+             */
             selectByAnimePage() {
                 this.anime.loading = true
                 this.anime.list = []
@@ -181,32 +207,47 @@
                     this.anime.loading = false
                 })
             },
+            /**
+             * 根据不同视频类型，处理页码变化
+             * @param type
+             */
             sizeChange(type) {
                 switch (type) {
-                    case this.movieHot.type:
-                        this.selectHotPage()
+                    case this.movieHot.movieHotType:
+                        this.selectMovieHotPage(this.movieHot.movieHotType)
+                        break
+                    case this.movieHot.movieRecentType:
+                        this.selectMovieHotPage(this.movieHot.movieRecentType)
                         break
                     case this.movieTop.type:
-                        this.selectTopPage()
+                        this.selectMovieTopPage()
                         break
                     case this.tvHot.type:
                         this.selectTvHotPage()
                         break
                 }
             },
+            /**
+             * 切换子分类
+             * @param type
+             */
             switchTV(type) {
                 if(type === this.tvHot.type) {
                     this.selectTvHotPage()
-                }else {
+                } else if(type === this.movieHot.movieHotType) {
+                    this.selectMovieHotPage(this.movieHot.movieHotType)
+                } else if(type === this.movieHot.movieRecentType) {
+                    this.selectMovieHotPage(this.movieHot.movieRecentType)
+                } else {
                     this.selectByTvPage()
                 }
             }
         },
         created() {
             //分页查询热映电影
-            this.selectHotPage()
+            this.selectMovieHotPage(this.movieHot.movieHotType)
             //分页查询经典电影
-            this.selectTopPage()
+            this.selectMovieTopPage()
             //分页查询热播电视剧
             this.selectTvHotPage()
             //分页查询综艺视频
