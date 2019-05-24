@@ -46,6 +46,8 @@ Vue.filter('dist', function (value) {
     switch (value) {
         case 128:
             return '热映'
+        case 129:
+            return '经典'
         case 131:
             return '热播'
         case 132:

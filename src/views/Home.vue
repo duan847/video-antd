@@ -4,8 +4,6 @@
         <VideoCard :obj="movieHot"/>
         <!--电视剧-->
         <VideoCard :obj="tv"/>
-        <!--经典电影-->
-        <VideoCard :obj="movieTop"/>
         <!--综艺视频-->
         <VideoCard :obj="varietyShow"/>
         <!--动漫-->
@@ -34,13 +32,15 @@
                     loading: false,
                     title: ' 火热电影',
                     movieHotType: 128,
+                    movieTopType: 129,
                     movieRecentType: 132,
                     icon: 'fire',
                     showPagination: false,
                     showMore: false,
                     classify: [
                         {"key": 128, value: {"showPagination": true}},
-                        {"key": 132, value: {"showPagination": true}}
+                        {"key": 132, value: {"showPagination": true}},
+                        {"key": 129, value: {"showPagination": true}}
                     ]
                 },
                 tvHot: {
@@ -53,17 +53,6 @@
                     title: ' 热播',
                     icon: 'fire',
                     showPagination: true,
-                },
-                movieTop: {
-                    size: 12,
-                    list: [],
-                    current: 1,
-                    type: 129,
-                    total: 1,
-                    loading: false,
-                    title: ' 电影排行榜',
-                    icon: 'crown',
-                    showPagination: true
                 },
                 tv: {
                     size: 12,
@@ -219,9 +208,6 @@
                     case this.movieHot.movieRecentType:
                         this.selectMovieHotPage(this.movieHot.movieRecentType)
                         break
-                    case this.movieTop.type:
-                        this.selectMovieTopPage()
-                        break
                     case this.tvHot.type:
                         this.selectTvHotPage()
                         break
@@ -238,6 +224,8 @@
                     this.selectMovieHotPage(this.movieHot.movieHotType)
                 } else if(type === this.movieHot.movieRecentType) {
                     this.selectMovieHotPage(this.movieHot.movieRecentType)
+                }else if(type === this.movieHot.movieTopType) {
+                    this.selectMovieHotPage(this.movieHot.movieTopType)
                 } else {
                     this.selectByTvPage()
                 }
@@ -246,8 +234,6 @@
         created() {
             //分页查询热映电影
             this.selectMovieHotPage(this.movieHot.movieHotType)
-            //分页查询经典电影
-            this.selectMovieTopPage()
             //分页查询热播电视剧
             this.selectTvHotPage()
             //分页查询综艺视频
