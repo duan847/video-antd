@@ -76,10 +76,10 @@
                     current: 1,
                     total: 1,
                     loading: false,
-                    type: '11',
+                    type: 133,
                     title: ' 综艺',
                     icon: 'video-camera',
-                    showMore: true
+                    showPagination: true
                 },
                 anime: {
                     size: 12,
@@ -145,6 +145,23 @@
                 })
             },
             /**
+             * 分页查询综艺热播
+             */
+            selectVarietyShowHotPage() {
+                this.varietyShow.loading = true
+                this.varietyShow.list = []
+                selectSortPage({
+                    current: this.varietyShow.current,
+                    size: this.varietyShow.size,
+                    type: this.varietyShow.type
+                }).then(resp => {
+                    this.varietyShow.list = resp.records
+                    this.varietyShow.current = parseInt(resp.current)
+                    this.varietyShow.total = parseInt(resp.total)
+                    this.varietyShow.loading = false
+                })
+            },
+            /**
              * 分页查询综艺视频
              */
             selectByVarietyShowPage() {
@@ -194,6 +211,9 @@
                     case this.movie.movieRecentType:
                         this.selectMovieHotPage(this.movie.movieRecentType)
                         break
+                    case this.varietyShow.type:
+                        this.selectVarietyShowHotPage()
+                        break
                     case this.tvHot.type:
                         this.selectTvHotPage()
                         break
@@ -222,8 +242,8 @@
             this.selectMovieHotPage(this.movie.movieHotType)
             //分页查询热播电视剧
             this.selectTvHotPage()
-            //分页查询综艺视频
-            this.selectByVarietyShowPage()
+            //分页查询热播
+            this.selectVarietyShowHotPage()
             //分页查询动漫
             this.selectByAnimePage()
         }
