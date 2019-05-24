@@ -35,8 +35,7 @@
                     movieTopType: 129,
                     movieRecentType: 132,
                     icon: 'fire',
-                    showPagination: false,
-                    showMore: false,
+                    showPagination: true,
                     classify: [
                         {"key": 128, value: {"showPagination": true}},
                         {"key": 132, value: {"showPagination": true}},
