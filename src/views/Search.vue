@@ -98,7 +98,7 @@
         margin-right: 10px;
     }
     .name{
-        font-size: 20px;
+        font-size: 18px;
         color: lightgreen
     }
 </style>
