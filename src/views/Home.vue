@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--热映电影-->
-        <VideoCard :obj="movieHot"/>
+        <VideoCard :obj="movie"/>
         <!--电视剧-->
         <VideoCard :obj="tv"/>
         <!--综艺视频-->
@@ -23,7 +23,7 @@
         },
         data() {
             return {
-                movieHot: {
+                movie: {
                     size: 12,
                     list: [],
                     current: 1,
@@ -101,13 +101,13 @@
              * @param type
              */
             selectMovieHotPage(type) {
-                this.movieHot.loading = true
-                this.movieHot.list = []
-                selectSortPage({current: this.movieHot.current, size: this.movieHot.size, type: type}).then(resp => {
-                    this.movieHot.list = resp.records
-                    this.movieHot.current = parseInt(resp.current)
-                    this.movieHot.total = parseInt(resp.total)
-                    this.movieHot.loading = false
+                this.movie.loading = true
+                this.movie.list = []
+                selectSortPage({current: this.movie.current, size: this.movie.size, type: type}).then(resp => {
+                    this.movie.list = resp.records
+                    this.movie.current = parseInt(resp.current)
+                    this.movie.total = parseInt(resp.total)
+                    this.movie.loading = false
                 })
             },
             /**
@@ -124,19 +124,6 @@
                     this.tv.loading = false
                     this.tv.showPagination = true
                     this.tv.showMore = false
-                })
-            },
-            /**
-             * 分页查询电影排行榜
-             */
-            selectMovieTopPage() {
-                this.movieTop.loading = true
-                this.movieTop.list = []
-                selectSortPage({current: this.movieTop.current, size: this.movieTop.size, type: this.movieTop.type}).then(resp => {
-                    this.movieTop.list = resp.records
-                    this.movieTop.current = parseInt(resp.current)
-                    this.movieTop.total = parseInt(resp.total)
-                    this.movieTop.loading = false
                 })
             },
             /**
@@ -202,11 +189,11 @@
              */
             sizeChange(type) {
                 switch (type) {
-                    case this.movieHot.movieHotType:
-                        this.selectMovieHotPage(this.movieHot.movieHotType)
+                    case this.movie.movieHotType:
+                        this.selectMovieHotPage(this.movie.movieHotType)
                         break
-                    case this.movieHot.movieRecentType:
-                        this.selectMovieHotPage(this.movieHot.movieRecentType)
+                    case this.movie.movieRecentType:
+                        this.selectMovieHotPage(this.movie.movieRecentType)
                         break
                     case this.tvHot.type:
                         this.selectTvHotPage()
@@ -220,12 +207,12 @@
             switchTV(type) {
                 if(type === this.tvHot.type) {
                     this.selectTvHotPage()
-                } else if(type === this.movieHot.movieHotType) {
-                    this.selectMovieHotPage(this.movieHot.movieHotType)
-                } else if(type === this.movieHot.movieRecentType) {
-                    this.selectMovieHotPage(this.movieHot.movieRecentType)
-                }else if(type === this.movieHot.movieTopType) {
-                    this.selectMovieHotPage(this.movieHot.movieTopType)
+                } else if(type === this.movie.movieHotType) {
+                    this.selectMovieHotPage(this.movie.movieHotType)
+                } else if(type === this.movie.movieRecentType) {
+                    this.selectMovieHotPage(this.movie.movieRecentType)
+                }else if(type === this.movie.movieTopType) {
+                    this.selectMovieHotPage(this.movie.movieTopType)
                 } else {
                     this.selectByTvPage()
                 }
@@ -233,7 +220,7 @@
         },
         created() {
             //分页查询热映电影
-            this.selectMovieHotPage(this.movieHot.movieHotType)
+            this.selectMovieHotPage(this.movie.movieHotType)
             //分页查询热播电视剧
             this.selectTvHotPage()
             //分页查询综艺视频
