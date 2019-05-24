@@ -64,7 +64,8 @@
                     current: 1,
                     total: 1,
                     loading: false,
-                    title: ' 最新电视剧',
+                    title: ' 电视剧',
+                    icon: 'video-camera',
                     showPagination: false,
                     showMore: false,
                     classify: [
