@@ -44,7 +44,13 @@ Vue.use(VueLazyload)
 Vue.filter('dist', function (value) {
     if (!value) return ''
     switch (value) {
+        case 128:
+            return '热映'
+        case 129:
+            return '经典'
         case 131:
+            return '热播'
+        case 132:
             return '热播'
         case 12:
             return '国产'

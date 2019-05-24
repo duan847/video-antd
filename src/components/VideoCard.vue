@@ -58,13 +58,13 @@
                 this.$parent.sizeChange(this.obj.type);
             },switchClassify(item){
                 this.obj.type = item.key
+                this.obj.current = 1
                 this.obj.showPagination = item.value.showPagination
                 this.obj.showMore = item.value.showMore
                 this.$parent.switchTV(this.obj.type);
             }
         },watch: {
             chartData: function(newVal){
-                window.console.log(newVal)
                 this.newData = newVal;
             }
         }

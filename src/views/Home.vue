@@ -1,11 +1,9 @@
 <template>
     <div>
         <!--热映电影-->
-        <VideoCard :obj="movieHot"/>
+        <VideoCard :obj="movie"/>
         <!--电视剧-->
         <VideoCard :obj="tv"/>
-        <!--经典电影-->
-        <VideoCard :obj="movieTop"/>
         <!--综艺视频-->
         <VideoCard :obj="varietyShow"/>
         <!--动漫-->
@@ -25,16 +23,24 @@
         },
         data() {
             return {
-                movieHot: {
+                movie: {
                     size: 12,
                     list: [],
                     current: 1,
                     type: 128,
                     total: 1,
                     loading: false,
-                    title: ' 热映电影',
+                    title: ' 火热电影',
+                    movieHotType: 128,
+                    movieTopType: 129,
+                    movieRecentType: 132,
                     icon: 'fire',
                     showPagination: true,
+                    classify: [
+                        {"key": 128, value: {"showPagination": true}},
+                        {"key": 132, value: {"showPagination": true}},
+                        {"key": 129, value: {"showPagination": true}}
+                    ]
                 },
                 tvHot: {
                     size: 12,
@@ -46,17 +52,6 @@
                     title: ' 热播',
                     icon: 'fire',
                     showPagination: true,
-                },
-                movieTop: {
-                    size: 12,
-                    list: [],
-                    current: 1,
-                    type: 129,
-                    total: 1,
-                    loading: false,
-                    title: ' 电影排行榜',
-                    icon: 'crown',
-                    showPagination: true
                 },
                 tv: {
                     size: 12,
@@ -100,16 +95,23 @@
             }
         },
         methods: {
-            selectHotPage() {
-                this.movieHot.loading = true
-                this.movieHot.list = []
-                selectSortPage({current: this.movieHot.current, size: this.movieHot.size, type: this.movieHot.type}).then(resp => {
-                    this.movieHot.list = resp.records
-                    this.movieHot.current = parseInt(resp.current)
-                    this.movieHot.total = parseInt(resp.total)
-                    this.movieHot.loading = false
+            /**
+             * 分页查询火热电影（热映电影、热播电影）
+             * @param type
+             */
+            selectMovieHotPage(type) {
+                this.movie.loading = true
+                this.movie.list = []
+                selectSortPage({current: this.movie.current, size: this.movie.size, type: type}).then(resp => {
+                    this.movie.list = resp.records
+                    this.movie.current = parseInt(resp.current)
+                    this.movie.total = parseInt(resp.total)
+                    this.movie.loading = false
                 })
             },
+            /**
+             * 分页查询热播电视剧
+             */
             selectTvHotPage() {
                 this.tv.loading = true
                 this.tv.list = []
@@ -123,16 +125,9 @@
                     this.tv.showMore = false
                 })
             },
-            selectTopPage() {
-                this.movieTop.loading = true
-                this.movieTop.list = []
-                selectSortPage({current: this.movieTop.current, size: this.movieTop.size, type: this.movieTop.type}).then(resp => {
-                    this.movieTop.list = resp.records
-                    this.movieTop.current = parseInt(resp.current)
-                    this.movieTop.total = parseInt(resp.total)
-                    this.movieTop.loading = false
-                })
-            },
+            /**
+             * 分页查询电视剧
+             */
             selectByTvPage() {
                 this.tv.loading = true
                 this.tv.list = []
@@ -149,6 +144,9 @@
                     this.tv.loading = false
                 })
             },
+            /**
+             * 分页查询综艺视频
+             */
             selectByVarietyShowPage() {
                 this.varietyShow.loading = true
                 this.varietyShow.list = []
@@ -165,6 +163,9 @@
                     this.varietyShow.loading = false
                 })
             },
+            /**
+             * 分页查询动漫
+             */
             selectByAnimePage() {
                 this.anime.loading = true
                 this.anime.list = []
@@ -181,32 +182,44 @@
                     this.anime.loading = false
                 })
             },
+            /**
+             * 根据不同视频类型，处理页码变化
+             * @param type
+             */
             sizeChange(type) {
                 switch (type) {
-                    case this.movieHot.type:
-                        this.selectHotPage()
+                    case this.movie.movieHotType:
+                        this.selectMovieHotPage(this.movie.movieHotType)
                         break
-                    case this.movieTop.type:
-                        this.selectTopPage()
+                    case this.movie.movieRecentType:
+                        this.selectMovieHotPage(this.movie.movieRecentType)
                         break
                     case this.tvHot.type:
                         this.selectTvHotPage()
                         break
                 }
             },
+            /**
+             * 切换子分类
+             * @param type
+             */
             switchTV(type) {
                 if(type === this.tvHot.type) {
                     this.selectTvHotPage()
-                }else {
+                } else if(type === this.movie.movieHotType) {
+                    this.selectMovieHotPage(this.movie.movieHotType)
+                } else if(type === this.movie.movieRecentType) {
+                    this.selectMovieHotPage(this.movie.movieRecentType)
+                }else if(type === this.movie.movieTopType) {
+                    this.selectMovieHotPage(this.movie.movieTopType)
+                } else {
                     this.selectByTvPage()
                 }
             }
         },
         created() {
             //分页查询热映电影
-            this.selectHotPage()
-            //分页查询经典电影
-            this.selectTopPage()
+            this.selectMovieHotPage(this.movie.movieHotType)
             //分页查询热播电视剧
             this.selectTvHotPage()
             //分页查询综艺视频
