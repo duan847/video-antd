@@ -16,7 +16,8 @@ import {
     List,
     Spin,
     Icon,
-    BackTop
+    BackTop,
+    Tooltip
 } from 'ant-design-vue'
 import App from './App'
 
@@ -37,6 +38,7 @@ Vue.use(List)
 Vue.use(Spin)
 Vue.use(Icon)
 Vue.use(BackTop)
+Vue.use(Tooltip)
 
 //图片懒加载
 Vue.use(VueLazyload)

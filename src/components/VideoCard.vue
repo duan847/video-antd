@@ -25,7 +25,10 @@
                                                     <div class="remarks" >
                                       {{item.remarks}}</div>
                         </div>
-                        <a-card-meta :title="item.name"/>
+                        <a-tooltip placement="bottomLeft" :title="item.name">
+                            <a-card-meta :title="item.name"/>
+                        </a-tooltip>
+
                     </a-card>
                 </router-link>
             </a-col>
