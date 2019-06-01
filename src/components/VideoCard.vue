@@ -22,6 +22,8 @@
                     <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}" >
                         <div slot="cover" class="cover" >
                             <img alt="图片" v-lazy="item.cover" class="img" />
+                            <div class="score" >
+                                {{item.score}}</div>
                                                     <div class="remarks" >
                                       {{item.remarks}}</div>
                         </div>
@@ -98,8 +100,19 @@
         font-size: 12px;
         line-height: 20px;
         color: #fff;
-        background: rgba(0,0,0,.6);
+        background: rgba(0,0,0,0.6);
         padding: 0 7px;
+        border-radius: 10px;
+    }
+    .score{
+        position: absolute;
+        top: 7px;
+        right: 5px;
+        font-size: 17px;
+        line-height: 20px;
+        color: #fff;
+        padding: 0 7px;
+        background: rgba(0,0,0,0.1);
         border-radius: 10px;
     }
     .cover{

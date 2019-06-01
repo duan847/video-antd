@@ -5,6 +5,8 @@
             <a-list-item slot="renderItem" slot-scope="item" key="item.title" :description="item.name" style="display:flex;padding-right: 10px" >
                 <div class="cover">
                     <img class="img"  alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
+                    <div class="score" >
+                        {{item.score}}</div>
                     <div class="remarks" >
                         {{item.remarks}}</div>
                 </div>
@@ -92,6 +94,17 @@
         color: #fff;
         background: rgba(0,0,0,.6);
         padding: 0 7px;
+        border-radius: 10px;
+    }
+    .score{
+        position: absolute;
+        top: 7px;
+        right: 5px;
+        font-size: 17px;
+        line-height: 20px;
+        color: #fff;
+        padding: 0 7px;
+        background: rgba(0,0,0,0.3);
         border-radius: 10px;
     }
     .cover{
