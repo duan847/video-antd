@@ -15,6 +15,7 @@
                         </keep-alive>
                     </div>
                 </a-layout-content>
+                <a-layout-footer><Footer/></a-layout-footer>
             </a-layout>
         </a-locale-provider>
     </div>
@@ -27,6 +28,7 @@
 
     moment.locale('zh-cn');
     import Header from './Header'
+    import Footer from './Footer'
     export default {
         data() {
             return {
@@ -34,7 +36,7 @@
             }
         },
         components: {
-            Header
+            Header,Footer
         }
     }
 </script>
