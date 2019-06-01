@@ -1,26 +1,38 @@
 <template>
     <div id="components-layout-demo-basic">
-        <a-layout>
-            <a-affix>
-                <a-layout-header>
-                    <Header/>
-                </a-layout-header>
-            </a-affix>
-            <a-layout-content>
-                <div>
-                    <a-back-top/>
-                    <keep-alive exclude="player">
-                        <router-view/>
-                    </keep-alive>
-                </div>
-            </a-layout-content>
-        </a-layout>
+        <a-locale-provider :locale="zh_CN">
+            <a-layout>
+                <a-affix>
+                    <a-layout-header>
+                        <Header/>
+                    </a-layout-header>
+                </a-affix>
+                <a-layout-content>
+                    <div>
+                        <a-back-top/>
+                        <keep-alive exclude="player">
+                            <router-view/>
+                        </keep-alive>
+                    </div>
+                </a-layout-content>
+            </a-layout>
+        </a-locale-provider>
     </div>
 </template>
 
 <script>
+    import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
+    import moment from 'moment';
+    import 'moment/locale/zh-cn';
+
+    moment.locale('zh-cn');
     import Header from './Header'
     export default {
+        data() {
+            return {
+                zh_CN,
+            }
+        },
         components: {
             Header
         }

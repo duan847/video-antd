@@ -1,7 +1,7 @@
 <template>
     <div style="padding-bottom: 10px">
         <a-divider orientation="left">搜索 ：{{this.name || (type | dist)}}</a-divider>
-        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"  :grid="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" >
+        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"  :grid="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" :style="" >
             <a-list-item slot="renderItem" slot-scope="item" key="item.title" :description="item.name" style="display:flex;padding-right: 10px" >
                 <div class="cover">
                     <img class="img"  alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
@@ -35,6 +35,8 @@
                     size: this.pagination.pageSize,
                     name: this.name,
                     type: this.type,
+                    orderByField: 'update_time',
+                    isAsc: false
                 }).then(resp => {
                     this.listData = resp.records
                     this.pagination.current = parseInt(resp.current)
@@ -52,6 +54,8 @@
                 type: this.$route.query.type,
                 listData: null,
                 pagination: {
+                    simple: true,
+                    position: "both", //分页显示的显示的位置：上下都显示
                     onChange: (page) => {
                         this.pagination.current = page
                         this.selectPage()
@@ -94,11 +98,14 @@
         float:left;
         position:relative;
         width:12em;
-        height:20em;
+        height:16em;
         margin-right: 10px;
     }
     .name{
         font-size: 18px;
         color: lightgreen
+    }
+
+    .ant-list-pagination{
     }
 </style>

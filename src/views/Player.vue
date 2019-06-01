@@ -47,7 +47,8 @@
                 name: null,
                 player: null,
                 loading: false,
-                urlIndex: 0
+                urlIndex: 0,
+                videoPlayStatus: true
             }
         },
         created() {
@@ -55,7 +56,6 @@
                 this.videoDetail = resp[1]
                 this.name = resp[1].name
                 document.title = this.name
-
                 this.urlList = resp[0].records
                 this.initVideo()
             })
@@ -97,10 +97,11 @@
                 updateAllInfoById(this.videoDetail.id).then(resp => {
                     if (resp) {
                         this.$message.success('更新集数成功');
-                        this.selectUrlPageById()
+                        selectUrlPageById(this.id, {size: this.urlSize})
                     }
                     this.loading = false
-                }).catch(()=> {
+                }).catch(e=> {
+window.console.log(e)
                     this.$message.error('抱歉，由于集数较多或网络不好，更新较慢，请稍等后手动刷新本页面');
                     this.loading = false
                 })
@@ -191,6 +192,10 @@
                             // 下键
                             if (event.which === 40 ) {
                                 this.volume(this.volume() - 0.1)
+                            }
+                            // 空格
+                            if (event.which === 32 ) {
+                                this.paused() ? this.play() : this.pause()
                             }
                         }
                     },

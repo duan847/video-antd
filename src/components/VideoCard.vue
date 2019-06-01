@@ -35,7 +35,7 @@
 <!--            <a-spin v-if="obj.loading"/>-->
         </a-row>
         <a-row v-if="obj.showPagination && obj.total > obj.size">
-            <a-pagination :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange" class="load-more"/>
+            <a-pagination simple  :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange" class="load-more"/>
         </a-row>
         <a-row v-if="obj.showMore && obj.total > obj.size">
             <div v-if="!obj.loading" class="load-more">
