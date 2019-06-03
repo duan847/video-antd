@@ -2,30 +2,37 @@
     <div>
         <a-divider orientation="left">
             <a-icon :type="obj.icon" theme="twoTone" twoToneColor="#eb2f96"/>
-            <b class="title"> {{obj.title}}</b> &nbsp;<a @click="switchClassify(item)" v-for="(item,index) in obj.classify" :disabled="obj.type === item.key ? true : false" :key="index">{{item.key | dist}}<a-divider type="vertical"  v-if="obj.classify.length - 1 !== index"/></a>
+            <b class="title"> {{obj.title}}</b> &nbsp;<a @click="switchClassify(item)"
+                                                         v-for="(item,index) in obj.classify"
+                                                         :disabled="obj.type === item.key ? true : false" :key="index">{{item.key | dist}}
+            <a-divider type="vertical" v-if="obj.classify.length - 1 !== index"/>
+        </a>
         </a-divider>
-<!--        没有数据时显示加载中-->
-                <a-row  v-if="obj.loading">
-                    <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(index) in obj.size" :key="index" class="col-padding">
-                        <a-card :bodyStyle="{padding:'0.52em 0.1em'}">
-                            <div slot="cover" class="cover" >
-                                <a-spin />
-                                <div class="remarks"></div>
-                            </div>
-                            <span :slot="title">&nbsp;</span>
-                        </a-card>
-                    </a-col>
-                </a-row>
+        <!-- 没有数据时显示加载中-->
+        <a-row v-if="obj.loading">
+            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(index) in obj.size" :key="index" class="col-padding">
+                <a-card :bodyStyle="{padding:'0.52em 0.1em'}">
+                    <div slot="cover" class="cover">
+                        <a-spin/>
+                        <div class="remarks"></div>
+                    </div>
+                    <span :slot="title">&nbsp;</span>
+                </a-card>
+            </a-col>
+        </a-row>
         <a-row>
-            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index" class="col-padding">
+            <a-col :xs="8" :sm="6" :md="4" :lg="4" :xl="2" v-for="(item,index) in obj.list" :key="index"
+                   class="col-padding">
                 <router-link :to="{ path: 'player', query: { id: item.id }}">
-                    <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}" >
-                        <div slot="cover" class="cover" >
-                            <img alt="图片" v-lazy="item.cover" class="img" />
-                            <div class="score" >
-                                {{item.score}}</div>
-                                                    <div class="remarks" >
-                                      {{item.remarks}}</div>
+                    <a-card hoverable :bodyStyle="{padding:'0.7em 0.1em'}">
+                        <div slot="cover" class="cover">
+                            <img alt="图片" v-lazy="item.cover" class="img"/>
+                            <div class="score">
+                                {{item.score}}
+                            </div>
+                            <div class="remarks">
+                                {{item.remarks}}
+                            </div>
                         </div>
                         <a-tooltip placement="bottomLeft" :title="item.name">
                             <a-card-meta :title="item.name"/>
@@ -34,10 +41,11 @@
                     </a-card>
                 </router-link>
             </a-col>
-<!--            <a-spin v-if="obj.loading"/>-->
+            <!--<a-spin v-if="obj.loading"/>-->
         </a-row>
         <a-row v-if="obj.showPagination && obj.total > obj.size">
-            <a-pagination simple  :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange" class="load-more"/>
+            <a-pagination simple :pageSize.sync="obj.size" v-model="obj.current" :total="obj.total" @change="sizeChange"
+                          class="load-more"/>
         </a-row>
         <a-row v-if="obj.showMore && obj.total > obj.size">
             <div v-if="!obj.loading" class="load-more">
@@ -51,25 +59,25 @@
 
 <script>
     export default {
-        data(){
+        data() {
             return {
                 newData: {}
             }
         },
-        props:["obj"],
+        props: ["obj"],
         methods: {
             sizeChange(page) {
                 this.obj.current = page
                 this.$parent.sizeChange(this.obj.type);
-            },switchClassify(item){
+            }, switchClassify(item) {
                 this.obj.type = item.key
                 this.obj.current = 1
                 this.obj.showPagination = item.value.showPagination
                 this.obj.showMore = item.value.showMore
                 this.$parent.switchTV(this.obj.type);
             }
-        },watch: {
-            chartData: function(newVal){
+        }, watch: {
+            chartData: function (newVal) {
                 this.newData = newVal;
             }
         }
@@ -80,31 +88,35 @@
     .title {
         font-size: 20px;
     }
+
     .load-more {
         text-align: center;
         margin-top: 3px;
         margin-bottom: 12px;
     }
-    .col-padding{
+
+    .col-padding {
         padding: 0 4px 8px 4px;
     }
-    .img{
-       width: 100%;
+
+    .img {
+        width: 100%;
         height: 100%;
     }
 
-    .remarks{
+    .remarks {
         position: absolute;
         bottom: 7px;
         right: 5px;
         font-size: 12px;
         line-height: 20px;
         color: #fff;
-        background: rgba(0,0,0,0.6);
+        background: rgba(0, 0, 0, 0.6);
         padding: 0 7px;
         border-radius: 10px;
     }
-    .score{
+
+    .score {
         position: absolute;
         top: 7px;
         right: 5px;
@@ -112,11 +124,12 @@
         line-height: 20px;
         color: #fff;
         padding: 0 7px;
-        background: rgba(0,0,0,0.1);
+        background: rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
-    .cover{
-        position:relative;
+
+    .cover {
+        position: relative;
         height: 13em;
     }
 </style>
