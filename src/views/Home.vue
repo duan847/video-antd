@@ -208,6 +208,9 @@
                     case this.movie.movieHotType:
                         this.selectMovieHotPage(this.movie.movieHotType)
                         break
+                    case this.movie.movieTopType:
+                        this.selectMovieHotPage(this.movie.movieTopType)
+                        break
                     case this.movie.movieRecentType:
                         this.selectMovieHotPage(this.movie.movieRecentType)
                         break
