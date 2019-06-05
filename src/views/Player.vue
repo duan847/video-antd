@@ -125,6 +125,16 @@
                     video: {
                         url: this.urlList[this.urlIndex].url
                     },
+                    danmaku: {
+                        id: this.urlList[this.urlIndex].id,
+                        api: 'https://api.prprpr.me/dplayer/',
+                        // token: 'tokendemo',
+                        // maximum: 1000,
+                        addition: ['https://api.prprpr.me/dplayer/v3/bilibili?aid='+ this.urlList[this.urlIndex].id],
+                        // user: 'DIYgod',
+                        // bottom: '15%',
+                        // unlimited: true
+                },
                 });
 
             }
