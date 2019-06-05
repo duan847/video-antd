@@ -22,7 +22,6 @@ module.exports = {
             "vue":"Vue",
             "vue-router":"VueRouter",
             "axios":"axios",
-            "video.js": "videojs",
             "VueLazyload":"VueLazyload"
         }
     }
