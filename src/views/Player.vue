@@ -126,7 +126,7 @@
                         url: this.urlList[this.urlIndex].url
                     },
                     danmaku: {
-                        id: this.urlList[this.urlIndex].id,
+                        id: this.urlList[this.urlIndex].url,
                         api: 'https://api.prprpr.me/dplayer/',
                         // token: 'tokendemo',
                         // maximum: 1000,
