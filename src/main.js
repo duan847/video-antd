@@ -18,7 +18,8 @@ import {
     Icon,
     BackTop,
     Tooltip,
-    LocaleProvider
+    LocaleProvider,
+    Switch
 } from 'ant-design-vue'
 import App from './App'
 
@@ -41,6 +42,7 @@ Vue.use(Icon)
 Vue.use(BackTop)
 Vue.use(Tooltip)
 Vue.use(LocaleProvider)
+Vue.use(Switch)
 
 //图片懒加载
 Vue.use(VueLazyload)

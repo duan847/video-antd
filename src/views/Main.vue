@@ -9,10 +9,11 @@
                 </a-affix>
                 <a-layout-content>
                     <div>
-                        <a-back-top/>
-                        <keep-alive exclude="player">
-                            <router-view/>
-                        </keep-alive>
+                        <SocketIM/>
+                        <!--<a-back-top/>-->
+                        <!--<keep-alive exclude="player">-->
+                            <!--<router-view/>-->
+                        <!--</keep-alive>-->
                     </div>
                 </a-layout-content>
                 <a-layout-footer><Footer/></a-layout-footer>
@@ -29,6 +30,7 @@
     moment.locale('zh-cn');
     import Header from './Header'
     import Footer from './Footer'
+    import SocketIM from '@/components/SocketIM'
     export default {
         data() {
             return {
@@ -36,7 +38,7 @@
             }
         },
         components: {
-            Header,Footer
+            Header,Footer,SocketIM
         }
     }
 </script>
