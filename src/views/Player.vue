@@ -88,7 +88,9 @@
                 updateAllInfoById(this.videoDetail.id).then(resp => {
                     if (resp) {
                         this.$message.success('更新集数成功');
-                        selectUrlPageById(this.id, {size: this.urlSize})
+                        selectUrlPageById(this.id, {size: this.urlSize}).then(resp =>{
+                            this.urlList = resp.records
+                        })
                     }
                     this.loading = false
                 }).catch(()=> {
@@ -136,6 +138,10 @@
                         // unlimited: true
                 },
                 });
+                //播放结束后播放下一集
+                this.player.on("ended",function(){
+                    that.switchNext()
+                })
 
             }
         },
