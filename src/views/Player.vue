@@ -123,7 +123,7 @@
                     screenshot: false, // 屏幕截图
                     autoplay: true, //自动播放
                     mutex: true, //互斥，阻止多个播放器同时播放
-                    volume: 1, //默认音量
+                    volume: 0.7, //默认音量
                     video: {
                         url: this.urlList[this.urlIndex].url
                     },
