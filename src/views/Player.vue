@@ -23,8 +23,8 @@
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
-        <!--播放线路、集数。少于五集，在同一个tab中显示-->
-        <a-tabs v-if="downUrlList!== undefined &&downUrlList!== null">
+        <!--下载地址-->
+        <a-tabs v-if="downUrlList!== undefined &&downUrlList!== null && downUrlList.length >0">
             <a-tab-pane tab="下载源" key="1">
                 <div>温馨提示：可将链接复制到百度网盘，使用百度网盘的离线下载功能高速下载（最快1秒下载完成）</div>
                 <a-button v-for="(downUrl,index) in downUrlList" :key="index" @click="down(downUrl.url)" class="episodes">{{downUrl.name}}
