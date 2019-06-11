@@ -55,7 +55,7 @@ selectList().then(resp => {
     })
     Vue.filter('dist', function (value) {
         if (!value) return ''
-        return dictMap.get(value)
+        return dictMap.get(value).replace("剧","")
     })
 })
 
