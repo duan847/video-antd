@@ -1,5 +1,6 @@
 // import Vue from 'vue'
 import router from './router'
+import {selectList} from '@/api/dict.js'
 import {
     Layout,
     Card,
@@ -45,27 +46,19 @@ Vue.use(LocaleProvider)
 //图片懒加载
 Vue.use(VueLazyload)
 
-Vue.filter('dist', function (value) {
-    if (!value) return ''
-    switch (value) {
-        case 128:
-            return '热映'
-        case 129:
-            return '经典'
-        case 131:
-            return '热播'
-        case 132:
-            return '热播'
-        case 12:
-            return '国产'
-        case 14:
-            return '港台'
-        case 8:
-            return '欧美'
-        case 7:
-            return '日韩'
-    }
+
+//代码字典初始化
+var dictMap = new Map();
+selectList().then(resp => {
+    resp.map(item=>{
+        dictMap.set(item.id,item.value);
+    })
+    Vue.filter('dist', function (value) {
+        if (!value) return ''
+        return dictMap.get(value)
+    })
 })
+
 new Vue({
     router,
     render: h => h(App)
