@@ -18,10 +18,18 @@
         <a-tabs v-else>
             <a-tab-pane v-for="(line,index) in this.reversedMessage" :key="index">
 
-                <span slot="tab">线路{{index}}</span>
+                <span slot="tab">播放源{{index}}</span>
                 <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name,index)" class="episodes">{{url.name}}</a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
+        </a-tabs>
+        <!--播放线路、集数。少于五集，在同一个tab中显示-->
+        <a-tabs v-if="downUrlList!== undefined &&downUrlList!== null">
+            <a-tab-pane tab="下载源" key="1">
+                <div>温馨提示：可将链接复制到百度网盘，使用百度网盘的离线下载功能高速下载（最快1秒下载完成）</div>
+                <a-button v-for="(downUrl,index) in downUrlList" :key="index" @click="down(downUrl.url)" class="episodes">{{downUrl.name}}
+                </a-button>
+            </a-tab-pane>
         </a-tabs>
         <a-row>
         <a-divider dashed orientation="left">简 介</a-divider>
@@ -30,7 +38,7 @@
     </div>
 </template>
 <script>
-    import {selectUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
+    import {selectUrlPageById, selectDownUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
     export default {
         name: 'player',
         data() {
@@ -41,6 +49,7 @@
                 videoDetail: {},
                 urlSize: -1,
                 urlList: null,
+                downUrlList: null,
                 id:  this.$route.params.id || this.$route.query.id,
                 name: null,
                 player: null,
@@ -56,6 +65,9 @@
             document.title = this.name
             this.urlList = resp[0].records
             this.initVideo()
+        })
+        selectDownUrlPageById(this.id, {size: this.urlSize}).then(resp => {
+            this.downUrlList = resp.records
         })
     },
     computed: {
@@ -143,6 +155,9 @@
                     that.switchNext()
                 })
 
+            },
+            down(url) {
+                window.open(url)
             }
         },
         mounted() {

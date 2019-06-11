@@ -36,6 +36,18 @@ export function selectUrlPageById(id,query) {
 }
 
 /**
+ * 根据id分页查询视频下载url
+ * @param query
+ */
+export function selectDownUrlPageById(id,query) {
+    return request({
+        url: '/video/'+id+'/down/page',
+        method: 'get',
+        params: query
+    })
+}
+
+/**
  * 根据id更新视频所有信息
  * @param id
  */
