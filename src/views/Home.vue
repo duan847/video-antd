@@ -68,7 +68,7 @@
                         {"key": 12, value: {"showMore": true}},
                         {"key": 14, value: {"showMore": true}},
                         {"key": 8, value: {"showMore": true}},
-                        {"key": 7, value: {"showMore": true}}
+                        // {"key": 7, value: {"showMore": true}}
                     ]
                 }, varietyShow: {
                     size: 12,
