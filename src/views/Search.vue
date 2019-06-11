@@ -1,7 +1,7 @@
 <template>
     <div style="padding-bottom: 10px">
-        <a-divider orientation="left">搜索 ：{{this.name || (type | dist)}}</a-divider>
-        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"  :grid="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" :style="" >
+        <a-divider orientation="left">搜索 ：{{this.name || this.type | dict}}</a-divider>
+        <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData" :loading="loading"  :grid="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" >
             <a-list-item slot="renderItem" slot-scope="item" key="item.title" :description="item.name" style="display:flex;padding-right: 10px" >
                 <div class="cover">
                     <img class="img"  alt="logo" v-lazy="item.cover" @click="play(item.id)"/>
@@ -75,6 +75,12 @@
                 this.pagination.current = 1
                 this.selectPage()
             })
+        },
+        watch: {
+            '$route' () {
+                this.name = this.$route.query.name
+                this.type = this.$route.query.type
+            }
         }
     }
 </script>

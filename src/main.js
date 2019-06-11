@@ -53,7 +53,7 @@ selectList().then(resp => {
     resp.map(item=>{
         dictMap.set(item.id,item.value);
     })
-    Vue.filter('dist', function (value) {
+    Vue.filter('dict', function (value) {
         if (!value) return ''
         return dictMap.get(value).replace("剧","")
     })
