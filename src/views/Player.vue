@@ -10,7 +10,8 @@
         <!--播放线路、集数。少于五集，在同一个tab中显示-->
         <a-tabs v-if="urlList!== undefined &&urlList!== null && urlList.length <= 5">
             <a-tab-pane tab="播放源" key="1">
-                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url,url.name,index)" class="episodes">{{url.name}}
+                <a-button v-for="(url,index) in urlList" :key="index" @click="switchUrl(url.url,url.name,index)"
+                          class="episodes">{{url.name}}
                 </a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
@@ -19,7 +20,9 @@
             <a-tab-pane v-for="(line,index) in this.reversedMessage" :key="index">
 
                 <span slot="tab">播放源{{index}}</span>
-                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name,index)" class="episodes">{{url.name}}</a-button>
+                <a-button v-for="(url,index) in line" :key="index" @click="switchUrl(url.url,url.name,index)"
+                          class="episodes">{{url.name}}
+                </a-button>
             </a-tab-pane>
             <a-button slot="tabBarExtraContent" :loading="loading" @click="updateAllInfoById">更新集数</a-button>
         </a-tabs>
@@ -27,18 +30,20 @@
         <a-tabs v-if="downUrlList!== undefined &&downUrlList!== null && downUrlList.length >0">
             <a-tab-pane tab="下载源" key="1">
                 <div>温馨提示：可将链接复制到百度网盘，使用百度网盘的离线下载功能高速下载（最快1秒下载完成）</div>
-                <a-button v-for="(downUrl,index) in downUrlList" :key="index" @click="down(downUrl.url)" class="episodes">{{downUrl.name}}
+                <a-button v-for="(downUrl,index) in downUrlList" :key="index" @click="down(downUrl.url)"
+                          class="episodes">{{downUrl.name}}
                 </a-button>
             </a-tab-pane>
         </a-tabs>
         <a-row>
-        <a-divider dashed orientation="left">简 介</a-divider>
-        <div>{{videoDetail.synopsis}}</div>
+            <a-divider dashed orientation="left">简 介</a-divider>
+            <div>{{videoDetail.synopsis}}</div>
         </a-row>
     </div>
 </template>
 <script>
-    import {selectUrlPageById, selectDownUrlPageById, getDetailById, updateAllInfoById} from '@/api/video'
+    import {getDetailById, selectDownUrlPageById, selectUrlPageById, updateAllInfoById} from '@/api/video'
+
     export default {
         name: 'player',
         data() {
@@ -50,7 +55,7 @@
                 urlSize: -1,
                 urlList: null,
                 downUrlList: null,
-                id:  this.$route.params.id || this.$route.query.id,
+                id: this.$route.params.id || this.$route.query.id,
                 name: null,
                 player: null,
                 loading: false,
@@ -58,41 +63,41 @@
                 videoPlayStatus: true
             }
         },
-    created() {
-        Promise.all([selectUrlPageById(this.id, {size: this.urlSize}),getDetailById(this.id)]).then(resp =>{
-            this.videoDetail = resp[1]
-            this.name = resp[1].name
-            document.title = this.name
-            this.urlList = resp[0].records
-            this.initVideo()
-        })
-        selectDownUrlPageById(this.id, {size: this.urlSize}).then(resp => {
-            this.downUrlList = resp.records
-        })
-    },
-    computed: {
-        reversedMessage: function () {
-            let arr = []
-            const map = {}
-            const list = this.urlList
+        created() {
+            Promise.all([selectUrlPageById(this.id, {size: this.urlSize}), getDetailById(this.id)]).then(resp => {
+                this.videoDetail = resp[1]
+                this.name = resp[1].name
+                document.title = this.name
+                this.urlList = resp[0].records
+                this.initVideo()
+            })
+            selectDownUrlPageById(this.id, {size: this.urlSize}).then(resp => {
+                this.downUrlList = resp.records
+            })
+        },
+        computed: {
+            reversedMessage: function () {
+                let arr = []
+                const map = {}
+                const list = this.urlList
 
-            if (!list) return {}
-            for (let i = 0; i < list.length; i++) {
-                if (i !== 0 && list[i - 1].line !== list[i].line) {
-                    map[list[i - 1].line] = arr
-                    arr = []
+                if (!list) return {}
+                for (let i = 0; i < list.length; i++) {
+                    if (i !== 0 && list[i - 1].line !== list[i].line) {
+                        map[list[i - 1].line] = arr
+                        arr = []
+                    }
+                    arr.push(list[i])
                 }
-                arr.push(list[i])
+                map[list[list.length - 1].line] = arr
+                return map
+            }, title: function () {
+                if (!this.name) {
+                    return ''
+                }
+                return this.name + ' - ' + this.urlList[this.urlIndex].name
             }
-            map[list[list.length - 1].line] = arr
-            return map
-        },title:function(){
-            if(!this.name) {
-                return ''
-            }
-            return this.name + ' - ' + this.urlList[this.urlIndex].name
-        }
-    },
+        },
         methods: {
             //根据id更新视频所有信息
             updateAllInfoById() {
@@ -100,29 +105,29 @@
                 updateAllInfoById(this.videoDetail.id).then(resp => {
                     if (resp) {
                         this.$message.success('更新集数成功');
-                        selectUrlPageById(this.id, {size: this.urlSize}).then(resp =>{
+                        selectUrlPageById(this.id, {size: this.urlSize}).then(resp => {
                             this.urlList = resp.records
                         })
                     }
                     this.loading = false
-                }).catch(()=> {
+                }).catch(() => {
                     this.$message.error('抱歉，由于集数较多或网络不好，更新较慢，请稍等后手动刷新本页面');
                     this.loading = false
                 })
             },
             //切换到下一集
-            switchNext(){
+            switchNext() {
                 this.urlIndex = this.urlIndex + 1
                 const url = this.urlIndex < this.urlList.length ? this.urlList[this.urlIndex].url : null
-                if(url) {
-                    this.$message.success('播放：' + this.name + " - " +this.urlList[this.urlIndex].name);
-                    this.switchUrl(url,this.urlList[this.urlIndex].name,this.urlIndex)
+                if (url) {
+                    this.player.notice('播放：' + this.name + " - " + this.urlList[this.urlIndex].name, 5000)
+                    this.switchUrl(url, this.urlList[this.urlIndex].name, this.urlIndex)
                 } else {
                     this.$message.error('已经是最后一集');
                 }
             },
-            switchUrl(url,name,index) {
-                this.player.switchVideo({url:url});
+            switchUrl(url, name, index) {
+                this.player.switchVideo({url: url});
                 this.player.play();
                 this.urlIndex = index
                 document.title = this.title
@@ -148,10 +153,15 @@
                         // user: 'DIYgod',
                         // bottom: '15%',
                         // unlimited: true
-                },
+                    }, contextmenu: [
+                        {
+                            text: '当前：' + this.name + " - " + this.urlList[this.urlIndex].name
+                        }
+                    ]
                 });
+
                 //播放结束后播放下一集
-                this.player.on("ended",function(){
+                this.player.on("ended", function () {
                     that.switchNext()
                 })
 
@@ -169,9 +179,10 @@
 </script>
 
 <style scoped>
-    .episodes{
-        margin:0.12em;
+    .episodes {
+        margin: 0.12em;
     }
+
     .dplayer {
         width: 100%;
     }
